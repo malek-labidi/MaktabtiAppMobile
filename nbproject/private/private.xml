@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/PIDEV/Full%20Project/MaktabtiAppMobile/src/com/genesisteam/maktabti/entities/Evenement.java</file>
+            <file>file:/D:/PIDEV/Full%20Project/MaktabtiAppMobile/src/com/genesisteam/maktabti/services/EvenementService.java</file>
+            <file>file:/D:/PIDEV/Full%20Project/MaktabtiAppMobile/src/com/genesisteam/maktabti/utilities/Statics.java</file>
+            <file>file:/D:/PIDEV/Full%20Project/MaktabtiAppMobile/src/com/genesisteam/maktabti/MyApplication.java</file>
+            <file>file:/D:/PIDEV/Full%20Project/MaktabtiAppMobile/src/com/genesisteam/maktabti/gui/ShowEvenement.java</file>
+        </group>
     </open-files>
 </project-private>
