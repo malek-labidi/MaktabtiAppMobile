@@ -10,5 +10,5 @@ package com.genesisteam.maktabti.utilities;
  * @author admin
  */
 public class Statics {
-    public static String BASE_URL = "https://127.0.0.1:8000";
+    public static String BASE_URL = "http://127.0.0.1:8000";
 }
