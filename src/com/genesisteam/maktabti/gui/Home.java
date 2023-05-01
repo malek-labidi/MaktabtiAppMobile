@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.genesisteam.maktabti.gui;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
@@ -34,58 +32,75 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import java.io.IOException;
+
+
 /**
  *
  * @author wassi
  */
-public class Home extends Form{
-    
+public class Home extends Form {
+
     Form current;
     private Resources theme;
-         private EncodedImage enc;
+    private EncodedImage enc;
 
-      public Home() throws IOException {
-         
-        setTitle("Bienvenue chez Maktabti");
+    public Home() throws IOException {
+
+        setTitle("Maktabti App");
         setScrollableY(true);
         setUIID("HOMEPAGE");
-        
-        
-        getToolbar().addCommandToSideMenu("Liste des offres", null, e->{
+        setBgImage(EncodedImage.create("/home-img.png"));
+         getTitleComponent().getStyle().setFgColor(ColorUtil.BLUE); 
+    getToolbar().getStyle().setBgColor(ColorUtil.BLUE); 
+    
+
+
+        getToolbar().addCommandToSideMenu("Acceuil", null, e -> {
+            this.show();
+        });
+        getToolbar().addCommandToSideMenu("Liste des Livres", null, e -> {
             //new GetOffres().show();
         });
-        getToolbar().addCommandToSideMenu("Liste des produits", null, e->{
+        getToolbar().addCommandToSideMenu("Liste des Compétitions", null, e -> {
+            new ShowCompetition().show();
+        });
+        getToolbar().addCommandToSideMenu("Liste des Evenements", null, e -> {
             //new ProduitsListe().show();
         });
-        getToolbar().addCommandToSideMenu("Ajouter Produit", null, e->{
+        getToolbar().addCommandToSideMenu("Liste des offres", null, e -> {
+            //new ProduitsListe().show();
+        });
+        getToolbar().addCommandToSideMenu("Réclamations", null, e -> {
             //new ProduitAjout().show();
         });
-        getToolbar().addCommandToSideMenu("Ajouter Offre", null, e->{
+        getToolbar().addCommandToSideMenu("Ajouter Offre", null, e -> {
             //new AddOffres().show();
         });
-        getToolbar().addCommandToSideMenu("Login", null, e->{
-            //new SignInForm().show();
+        getToolbar().addCommandToSideMenu("Login", null, e -> {
+              //new Login().show();
         });
-        getToolbar().addCommandToSideMenu("Profile", null, e->{
+        getToolbar().addCommandToSideMenu("Profile", null, e -> {
             //new ProfileForm().show();
-            
+
         });
-        getToolbar().addCommandToSideMenu("Logout", null, e->{
+        getToolbar().addCommandToSideMenu("Logout", null, e -> {
             //new SignInForm().show();
-        //SessionManager.pref.clearAll();
+            //SessionManager.pref.clearAll();
             Storage.getInstance().clearStorage();
             Storage.getInstance().clearCache();
-            //System.out.println(SessionManager.getEmail());   
-            
+            //System.out.println(SessionManager.getEmail());  
+            try {
+                new Welcome().show();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+
         });
-        
-        
-        
-   
-        
+
         enc = EncodedImage.create("/maktabti.png");
+
         //Image img=URLImage.createToStorage(enc,"http://localhost/img/shared.png","http://localhost/img/shared.png");
         ImageViewer imgv = new ImageViewer(enc);
         add(imgv);
-}
+    }
 }
