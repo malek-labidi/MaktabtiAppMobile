@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/Users/admin/Documents/NetBeansProjects/MaktabtiAppMobile/src/com/genesisteam/maktabti/entities/Competition.java</file>
+            <file>file:/E:/Users/admin/Documents/NetBeansProjects/MaktabtiAppMobile/src/com/genesisteam/maktabti/MyApplication.java</file>
+            <file>file:/E:/Users/admin/Documents/NetBeansProjects/MaktabtiAppMobile/src/com/genesisteam/maktabti/utilities/Statics.java</file>
+            <file>file:/E:/Users/admin/Documents/NetBeansProjects/MaktabtiAppMobile/src/com/genesisteam/maktabti/services/CompetitionService.java</file>
+            <file>file:/E:/Users/admin/Documents/NetBeansProjects/MaktabtiAppMobile/src/com/genesisteam/maktabti/gui/ShowCompetition.java</file>
+        </group>
     </open-files>
 </project-private>
