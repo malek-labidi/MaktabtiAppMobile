@@ -14,8 +14,10 @@ import com.codename1.ui.Toolbar;
 import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
+import com.codename1.ui.Image;
 
 import com.genesisteam.maktabti.gui.Home;
+
 
 
 /**
@@ -54,17 +56,19 @@ public class MyApplication {
     }
     
     public void start() {
-                try {
+                
         if(current != null){
             current.show();
             return;
         }
 
+        try {
             new Home().show();
-            
-                    } catch (IOException ex) {
-            System.out.println("");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
+            
+              
         
 
     }

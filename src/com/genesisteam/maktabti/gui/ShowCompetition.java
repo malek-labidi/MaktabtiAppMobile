@@ -31,7 +31,16 @@ public class ShowCompetition extends Form {
     CompetitionService cs = CompetitionService.getInstance();
 
     public ShowCompetition() {
-        this.setTitle("Competitions");
+       
+          setTitle("Liste des Compétitions");
+        setScrollableY(true);
+        getToolbar().addCommandToRightBar("Retour", null, ev->{
+            try {
+                new Home().show();
+            } catch (IOException ex) {
+                System.out.println("");
+            }
+        });
 
         // widgets
         Container cards = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -42,6 +51,7 @@ public class ShowCompetition extends Form {
 
             // create card content
             Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+            
             content.add(new Label(c.getNom()));
             content.add(new Label(c.getRecompense()));
             content.add(new Label(c.getDateDebut().toString()));
