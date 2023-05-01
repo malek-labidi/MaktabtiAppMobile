@@ -65,7 +65,7 @@ public class Home extends Form {
             new ShowCompetition().show();
         });
         getToolbar().addCommandToSideMenu("Liste des Evenements", null, e -> {
-            //new ProduitsListe().show();
+            new ShowEvenement().show();
         });
         getToolbar().addCommandToSideMenu("Liste des offres", null, e -> {
             //new ProduitsListe().show();
