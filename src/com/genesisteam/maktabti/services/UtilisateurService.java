@@ -61,8 +61,8 @@ public class UtilisateurService {
         
      
         
-        String url = "http://localhost:8000/register_rest?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
-                "&email="+email.getText().toString()+"&mot_de_passe="+password.getText().toString()+"&num_telephone="+Numerotelephone.getText().toString()+"&role="+Role.getText().toString();
+        String url = "http://localhost:8000/register_rest?Nom="+nom.getText().toString()+"&Prenom="+prenom.getText().toString()+
+                "&Email="+email.getText().toString()+"&Mot_de_passe="+password.getText().toString()+"&Num_telephone="+Numerotelephone.getText().toString()+"&Role="+Role.getText().toString();
         
         req.setUrl(url);
                req.setPost(false);
@@ -138,7 +138,7 @@ public class UtilisateurService {
                     new Home().show();
                     System.out.println("welcome");
                     
-                    }
+                }
             
             }catch(Exception ex) {
                 ex.printStackTrace();
