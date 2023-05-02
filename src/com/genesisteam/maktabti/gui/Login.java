@@ -9,73 +9,60 @@ import com.codename1.components.FloatingHint;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.genesisteam.maktabti.services.UtilisateurService;
+import java.io.IOException;
 
 /**
  *
  * @author wassim
  */
-public class Login extends BaseForm{
+public class Login extends Form{
   public Login() {
-        super(new BorderLayout());
         
-        if(!Display.getInstance().isTablet()) {
-            BorderLayout bl = (BorderLayout)getLayout();
-            bl.defineLandscapeSwap(BorderLayout.NORTH, BorderLayout.EAST);
-            bl.defineLandscapeSwap(BorderLayout.SOUTH, BorderLayout.CENTER);
-        }
-        getTitleArea().setUIID("Container");
-        setUIID("SignUp");
-        
-//        add(BorderLayout.NORTH, new Label(res.getImage("Logo.png"), "LogoLabel"));
-        
+
+        setTitle("S'authentifier");
+        setScrollableY(true);
+        getToolbar().addCommandToRightBar("Retour", null, ev->{
+            try {
+                new Home().show();
+            } catch (IOException ex) {
+                System.out.println("");
+            }
+        });
+
+
         TextField username = new TextField("", "email", 20, TextField.ANY);
         TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
         username.setSingleLineTextArea(false);
         password.setSingleLineTextArea(false);
-        Button signIn = new Button("Sign In");
-        Button signUp = new Button("Sign Up");
+        Button signIn = new Button("S'authentifier");
+        Button signUp = new Button("Vous n'avez pas de compte ? Créer un compte");
+
         
-        //mp oublié
-        Button  mp = new Button("oublier mot de passe?","CenterLabel");
-        
+
         
         signUp.addActionListener(e -> new Register().show());
-        signUp.setUIID("Link");
-        Label doneHaveAnAccount = new Label("Vous n'avez aucune compte?");
         
         
-        
-        
-        
-        
-        Container content = BoxLayout.encloseY(
-                new FloatingHint(username),
-                createLineSeparator(),
-                new FloatingHint(password),
-                createLineSeparator(),
-                signIn,
-                FlowLayout.encloseCenter(doneHaveAnAccount, signUp),mp
-        );
-        content.setScrollableY(true);
-        add(BorderLayout.SOUTH, content);
-        signIn.requestFocus();
         
         signIn.addActionListener(e -> 
         {
              UtilisateurService.getInstance().signin(username, password, null);
 
-           
         });
+
+                this.addAll(username, password, signIn,signUp);
+
         
         
         
-        //Mp oublie event
         
 
         
