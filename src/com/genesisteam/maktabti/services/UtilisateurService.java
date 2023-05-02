@@ -9,14 +9,18 @@ package com.genesisteam.maktabti.services;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
+import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.gui.Login;
 import com.genesisteam.maktabti.gui.SessionManager;
 import java.util.Map;
+import com.genesisteam.maktabti.entities.Utilisateur;
+import com.genesisteam.maktabti.utilities.Statics;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,7 +36,7 @@ public class UtilisateurService {
       //singleton 
     public static UtilisateurService instance = null ;
     
-    public static boolean resultOk = true;
+    public  boolean resultOk;
     String json;
 
     //initilisation connection request 
@@ -61,7 +65,7 @@ public class UtilisateurService {
                 "&email="+email.getText().toString()+"&mot_de_passe="+password.getText().toString()+"&num_telephone="+Numerotelephone.getText().toString()+"&role="+Role.getText().toString();
         
         req.setUrl(url);
-       
+               req.setPost(false);
         //Control saisi
         if(nom.getText().equals(" ") && prenom.getText().equals(" ") && email.getText().equals(" ")&& password.getText().equals(" ")&& Numerotelephone.getText().equals(" ")&& Role.getText().equals(" ")) {
             
@@ -124,6 +128,8 @@ public class UtilisateurService {
                SessionManager.setprenom(user.get("prenom").toString());
                SessionManager.setEmail(user.get("email").toString());
                SessionManager.setMot_de_passe(user.get("mot_de_passe").toString());
+               float numtel = Float.parseFloat(user.get("num_telephone").toString());
+               SessionManager.setNum_telephone((int)numtel);//jibt id ta3 user ly3ml login w sajltha fi session ta3i
                SessionManager.setRole(user.get("role").toString());
 
                 System.out.println("current user"+SessionManager.getEmail()+","+SessionManager.getMot_de_passe());
@@ -145,4 +151,35 @@ public class UtilisateurService {
          //ba3d execution ta3 requete ely heya url nestanaw response ta3 server.
         NetworkManager.getInstance().addToQueueAndWait(req);
     }
+    
+    
+       /*public boolean addDestination(Utilisateur user) {
+           
+        String url = Statics.BASE_URL + "/register_rest?nom="+user.getNom()+"&prenom="+user.getPrenom()+
+                "&email="+user.getEmail()+"&mot_de_passe="+user.getMot_de_passe()+
+                "&num_telephone="+user.getNum_telephone()+"&role="+user.getRole();
+        
+
+        req.setUrl(url);
+        req.setPost(false);
+
+       req.addArgument("nom", user.getNom());
+       req.addArgument("prenom", user.getPrenom());
+       req.addArgument("email", user.getEmail());
+       req.addArgument("mot_de_passe", user.getMot_de_passe());
+       req.addArgument("num_telephone", String.valueOf(user.getNum_telephone()));
+       req.addArgument("role", user.getRole());
+
+  
+       req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                System.out.println(new String(req.getResponseData()));
+                resultOk = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOk;
+   }*/
 }

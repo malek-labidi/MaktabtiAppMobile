@@ -77,7 +77,10 @@ public class Home extends Form {
             //new AddOffres().show();
         });
         getToolbar().addCommandToSideMenu("Login", null, e -> {
-              //new Login().show();
+              new Login().show();
+        });
+        getToolbar().addCommandToSideMenu("Register", null, e -> {
+              new Register().show();
         });
         getToolbar().addCommandToSideMenu("Profile", null, e -> {
             //new ProfileForm().show();
