@@ -10,6 +10,7 @@
  */
 package com.genesisteam.maktabti.gui;
 
+import com.genesisteam.maktabti.gui.competition.GetCompetitions;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
@@ -26,6 +27,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.io.Storage;
+import com.codename1.ui.Command;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Image;
@@ -50,19 +52,20 @@ public class Home extends Form {
         setScrollableY(true);
         setUIID("HOMEPAGE");
         setBgImage(EncodedImage.create("/home-img.png"));
-         getTitleComponent().getStyle().setFgColor(ColorUtil.BLUE); 
-    getToolbar().getStyle().setBgColor(ColorUtil.BLUE); 
+       getToolbar().getStyle().setBgColor(0x00FF00);
+       getToolbar().getStyle().setFgColor(0xFFFFFF);
     
 
 
         getToolbar().addCommandToSideMenu("Acceuil", null, e -> {
             this.show();
         });
+        
         getToolbar().addCommandToSideMenu("Liste des Livres", null, e -> {
             //new GetOffres().show();
         });
         getToolbar().addCommandToSideMenu("Liste des Compétitions", null, e -> {
-            new ShowCompetition().show();
+            new GetCompetitions().show();
         });
         getToolbar().addCommandToSideMenu("Liste des Evenements", null, e -> {
             new ShowEvenement().show();
@@ -99,6 +102,7 @@ public class Home extends Form {
             }
 
         });
+         
 
         enc = EncodedImage.create("/maktabti.png");
 
