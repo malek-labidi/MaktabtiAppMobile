@@ -13,10 +13,14 @@ import com.codename1.io.NetworkManager;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
 
+
 import com.codename1.ui.events.ActionListener;
 import com.genesisteam.maktabti.entities.Competition;
 import com.genesisteam.maktabti.utilities.Statics;
+
 import java.io.IOException;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +39,7 @@ public class CompetitionService {
     //util
     boolean resultOK = false;
     List<Competition> competitions;
+    Competition competition;
 
     //Constructor
     private CompetitionService() {
@@ -78,20 +83,20 @@ public class CompetitionService {
                 c.setListePaticipants((String) item.get("listePaticipants"));
                 c.setRecompense((String) item.get("recompense"));
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date dateDebut=null;
+                Date dateDebut = null;
                 try {
                     dateDebut = (Date) dateFormat.parse((String) item.get("dateDebut"));
                 } catch (ParseException ex) {
                     System.out.println(ex.getMessage());
                 }
-                c.setDateDebut( dateDebut);
-                Date dateFin=null;
+                c.setDateDebut(dateDebut);
+                Date dateFin = null;
                 try {
                     dateFin = (Date) dateFormat.parse((String) item.get("dateFin"));
                 } catch (ParseException ex) {
                     System.out.println(ex.getMessage());
                 }
-                c.setDateFin( dateFin);
+                c.setDateFin(dateFin);
                 c.setImage((String) item.get("image"));
 
                 competitions.add(c);
@@ -128,6 +133,80 @@ public class CompetitionService {
 
         NetworkManager.getInstance().addToQueueAndWait(req);
         return competitions;
+    }
+
+    public Competition getCompetition(Double id) {
+        req = new ConnectionRequest();
+       
+
+        // Build the API URL with the competition ID
+        String fetchURL = Statics.BASE_URL + "/competitions/get/" + id;
+
+        //2
+        req.setUrl(fetchURL);
+
+        //3
+        req.setPost(false);
+
+        //4
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                try {
+                    competition = fromJson(new String(req.getResponseData(), "UTF-8"));
+                } catch (UnsupportedEncodingException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+                req.removeResponseListener(this);
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return competition;
+    }
+
+    public Competition fromJson(String jsonText) {
+        JSONParser jp = new JSONParser();
+     competition = new Competition();
+
+        try {
+
+            //2
+            Map<String, Object> CompetitionsListJSON = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            //3
+            List<Map<String, Object>> list = (List<Map<String, Object>>) CompetitionsListJSON.get("root");
+               for (Map<String, Object> item : list) {
+
+            competition.setIdCompetition((Double) item.get("idCompetition"));
+            competition.setIdLivre((String) item.get("idLivre"));
+            competition.setNom((String) item.get("nom"));
+            competition.setLienCompetition((String) item.get("lienCompetition"));
+            competition.setListePaticipants((String) item.get("listePaticipants"));
+            competition.setRecompense((String) item.get("recompense"));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateDebut = null;
+            try {
+                dateDebut = (Date) dateFormat.parse((String) item.get("dateDebut"));
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
+            competition.setDateDebut(dateDebut);
+            Date dateFin = null;
+            try {
+                dateFin = (Date) dateFormat.parse((String) item.get("dateFin"));
+            } catch (ParseException ex) {
+                System.out.println(ex.getMessage());
+            }
+            competition.setDateFin(dateFin);
+            competition.setImage((String) item.get("image"));
+               }
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return competition;
     }
 
 }
