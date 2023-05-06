@@ -13,8 +13,8 @@ import java.util.Date;
  * @author SADOK
  */
 public class Evenement {
-    private Double idEvenement;
-    private Double nbTicket;
+    private int idEvenement;
+    private int nbTicket;
     private String nom,lieu,description,image;
     private Date date;
     private String heure;
@@ -22,7 +22,7 @@ public class Evenement {
     public Evenement() {
     }
 
-    public Evenement(Double idEvenement, Double nbTicket, String nom, String lieu, String description, String image, Date date, String heure) {
+    public Evenement(int idEvenement, int nbTicket, String nom, String lieu, String description, String image, Date date, String heure) {
         this.idEvenement = idEvenement;
         this.nbTicket = nbTicket;
         this.nom = nom;
@@ -33,7 +33,7 @@ public class Evenement {
         this.heure = heure;
     }
 
-    public Evenement(Double nbTicket, String nom, String lieu, String description, String image, Date date, String heure) {
+    public Evenement(int nbTicket, String nom, String lieu, String description, String image, Date date, String heure) {
         this.nbTicket = nbTicket;
         this.nom = nom;
         this.lieu = lieu;
@@ -45,19 +45,19 @@ public class Evenement {
 
    
 
-    public Double getIdEvenement() {
+    public int getIdEvenement() {
         return idEvenement;
     }
 
-    public void setIdEvenement(Double idEvenement) {
+    public void setIdEvenement(int idEvenement) {
         this.idEvenement = idEvenement;
     }
 
-    public Double getNbTicket() {
+    public int getNbTicket() {
         return nbTicket;
     }
 
-    public void setNbTicket(Double nbTicket) {
+    public void setNbTicket(int nbTicket) {
         this.nbTicket = nbTicket;
     }
 
