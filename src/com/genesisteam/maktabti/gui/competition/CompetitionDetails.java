@@ -32,10 +32,10 @@ public class CompetitionDetails extends Form {
          // add back button to toolbar
          Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
 
-      Command back = new Command("Retour",backIcon) {
+      Command back = new Command("",backIcon) {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            new GetCompetitions().showBack();
+           // new GetCompetitions().showBack();
         }
     };
     getToolbar().addCommandToLeftBar(back);

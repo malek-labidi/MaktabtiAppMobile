@@ -30,13 +30,7 @@ public class Register extends BaseForm {
     public Register() {
         setTitle("S'enregistrer");
         setScrollableY(true);
-        getToolbar().addCommandToRightBar("Retour", null, ev->{
-            try {
-                new Home().show();
-            } catch (IOException ex) {
-                System.out.println("");
-            }
-        });
+     
 
       
         TextField nom = new TextField("", "nom", 20, TextField.ANY);

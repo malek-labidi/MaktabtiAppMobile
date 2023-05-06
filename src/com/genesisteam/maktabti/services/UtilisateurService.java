@@ -35,7 +35,7 @@ import com.genesisteam.maktabti.utilities.Statics;
 public class UtilisateurService {
       //singleton 
     public static UtilisateurService instance = null ;
-    
+    private Resources theme;
     public  boolean resultOk;
     String json;
 
@@ -135,7 +135,7 @@ public class UtilisateurService {
                 System.out.println("current user"+SessionManager.getEmail()+","+SessionManager.getMot_de_passe());
           
                 if(user.size() >0 ) // l9a user
-                    new Home().show();
+                    new Home(theme).show();
                     System.out.println("welcome");
                     
                 }
