@@ -38,6 +38,7 @@ public class GetCompetitions extends BaseForm {
 
     CompetitionService cs = CompetitionService.getInstance();
     QuestionService qs = QuestionService.getInstance();
+    private Resources theme;
 
     public GetCompetitions(Resources res) {
 
@@ -99,7 +100,7 @@ public class GetCompetitions extends BaseForm {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     Competition competition = cs.getCompetition(c.getIdCompetition());
-                    new CompetitionDetails(competition).show();
+                    new CompetitionDetails(competition,res).show();
                 }
             });
 
@@ -108,7 +109,7 @@ public class GetCompetitions extends BaseForm {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
-                    new getQuestions(questions).show();
+                    new getQuestions(questions,res).show();
                 }
             });
 

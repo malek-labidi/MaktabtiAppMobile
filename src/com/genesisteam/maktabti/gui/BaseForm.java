@@ -24,7 +24,7 @@ import com.genesisteam.maktabti.gui.competition.GetCompetitions;
 
 /**
  *
- * @author wassim
+ * @author admin
  */
 public class BaseForm extends Form {
     
