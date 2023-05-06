@@ -29,13 +29,7 @@ public class Login extends Form{
 
         setTitle("S'authentifier");
         setScrollableY(true);
-        getToolbar().addCommandToRightBar("Retour", null, ev->{
-            try {
-                new Home().show();
-            } catch (IOException ex) {
-                System.out.println("");
-            }
-        });
+      
 
 
         TextField username = new TextField("", "email", 20, TextField.ANY);

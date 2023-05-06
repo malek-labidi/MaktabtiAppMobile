@@ -20,6 +20,7 @@ import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.gui.Login;
+import com.genesisteam.maktabti.gui.competition.GetCompetitions;
 
 /**
  *
@@ -55,7 +56,7 @@ public class BaseForm extends Form {
 
        protected void addSideMenu(Resources res) {
         Toolbar tb = getToolbar();
-        Image img = res.getImage("/.jpg");
+        Image img = res.getImage("load.png");
         if(img.getHeight() > Display.getInstance().getDisplayHeight() / 3) {
             img = img.scaledHeight(Display.getInstance().getDisplayHeight() / 3);
         }
@@ -64,14 +65,20 @@ public class BaseForm extends Form {
         sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
         
         tb.addComponentToSideMenu(LayeredLayout.encloseIn(
-                sl,
+              //  sl,
                 FlowLayout.encloseCenterBottom(
-                        new Label(res.getImage("profile-pic.jpg"), "PictureWhiteBackgrond"))
+                        new Label(res.getImage("logo.png"), "PictureWhiteBackgrond"))
         ));
         
-        //tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_SETTINGS, e -> new ProfileForm(res).show());
-        tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> {
-        new Login().show();
+        tb.addMaterialCommandToSideMenu("Acceuil", FontImage.MATERIAL_HOME,e -> new Home(res).show());
+        tb.addMaterialCommandToSideMenu("Livres", FontImage.MATERIAL_BOOK,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Competitions", FontImage.MATERIAL_WALLET_GIFTCARD,e -> new GetCompetitions(res).show());
+        tb.addMaterialCommandToSideMenu("Evenements", FontImage.MATERIAL_EVENT,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Offres", FontImage.MATERIAL_SAILING,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Réclamations", FontImage.MATERIAL_MESSAGE,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Profil", FontImage.MATERIAL_PERSON,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Déconnecter", FontImage.MATERIAL_EXIT_TO_APP, e -> {
+        new Welcome().show();
         SessionManager.pref.clearAll();
             Storage.getInstance().clearStorage();
             Storage.getInstance().clearCache();
