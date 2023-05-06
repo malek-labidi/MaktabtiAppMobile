@@ -22,6 +22,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Question;
+import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.services.QuestionService;
 import java.io.IOException;
@@ -32,14 +33,14 @@ import java.util.List;
  *
  * @author admin
  */
-public class getQuestions extends Form {
+public class getQuestions extends BaseForm {
 
     QuestionService cs = QuestionService.getInstance();
     private ArrayList<ButtonGroup> buttonGroups;
     private List<Question> questions;
         private Resources theme;
 
-    public getQuestions(List<Question> questions) {
+    public getQuestions(List<Question> questions,Resources res) {
        // setSingleLineTextArea(false);
         this.questions = questions;
         this.buttonGroups = new ArrayList<>();
@@ -50,7 +51,7 @@ public class getQuestions extends Form {
         Command back = new Command("", backIcon) {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new GetCompetitions(theme).showBack();
+                new GetCompetitions(res).showBack();
             }
         };
         getToolbar().addCommandToLeftBar(back);
