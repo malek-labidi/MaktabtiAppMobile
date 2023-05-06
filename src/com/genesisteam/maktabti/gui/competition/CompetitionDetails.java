@@ -18,24 +18,28 @@ import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Competition;
+import com.genesisteam.maktabti.gui.BaseForm;
 import java.io.IOException;
 
 /**
  *
  * @author admin
  */
-public class CompetitionDetails extends Form {
+public class CompetitionDetails extends BaseForm {
+    private Resources theme ; 
+    
   
-        public CompetitionDetails(Competition competition) {
+        public CompetitionDetails(Competition competition,Resources res) {
         setTitle("Détails de la compétition");
          // add back button to toolbar
          Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
 
-      Command back = new Command("Retour",backIcon) {
+      Command back = new Command("",backIcon) {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            new GetCompetitions().showBack();
+            new GetCompetitions(res).showBack();
         }
     };
     getToolbar().addCommandToLeftBar(back);
