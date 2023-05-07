@@ -5,6 +5,7 @@
  */
 package com.genesisteam.maktabti.gui.competition;
 
+import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
@@ -38,10 +39,10 @@ public class getQuestions extends BaseForm {
     QuestionService cs = QuestionService.getInstance();
     private ArrayList<ButtonGroup> buttonGroups;
     private List<Question> questions;
-        private Resources theme;
+    private Resources theme;
 
-    public getQuestions(List<Question> questions,Resources res) {
-       // setSingleLineTextArea(false);
+    public getQuestions(List<Question> questions, Resources res) {
+        // setSingleLineTextArea(false);
         this.questions = questions;
         this.buttonGroups = new ArrayList<>();
         setTitle("Quiz");
@@ -59,7 +60,10 @@ public class getQuestions extends BaseForm {
         for (Question question : questions) {
             Container questionContainer = new Container(new BorderLayout());
 
-            Label questionLabel = new Label(question.getQuestion());
+            SpanLabel questionLabel = new SpanLabel(question.getQuestion());
+            questionLabel.setTextUIID("MultiLine");
+            questionLabel.setUIID("Label");
+            questionLabel.setScrollVisible(false);
             questionContainer.add(BorderLayout.NORTH, questionLabel);
 
             RadioButton choice1Button = new RadioButton(question.getChoix1());
@@ -84,8 +88,8 @@ public class getQuestions extends BaseForm {
         Button submitButton = new Button("Submit");
         submitButton.addActionListener(evt -> {
             int score = calculateScore();
-            ToastBar.showMessage("Your score is "+ score, FontImage.MATERIAL_CHECK);
-           // Dialog.show("Score",  + score, "OK", null);
+            ToastBar.showMessage("Your score is " + score, FontImage.MATERIAL_CHECK);
+            // Dialog.show("Score",  + score, "OK", null);
         });
         add(submitButton);
 
