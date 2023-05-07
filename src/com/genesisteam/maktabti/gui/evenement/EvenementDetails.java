@@ -19,16 +19,18 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Evenement;
+import com.genesisteam.maktabti.gui.BaseForm;
 import java.io.IOException;
 
 /**
  *
  * @author SADOK
  */
-public class EvenementDetails extends Form {
+public class EvenementDetails extends BaseForm {
 
-    public EvenementDetails(Evenement evenement) {
+    public EvenementDetails(Evenement evenement,Resources res) {
         setTitle("Détails de l'Evenement");
         // add back button to toolbar
         Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
@@ -36,7 +38,7 @@ public class EvenementDetails extends Form {
         Command back = new Command("Retour", backIcon) {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                new ShowEvenement().showBack();
+                new ShowEvenement(res).showBack();
             }
         };
         getToolbar().addCommandToLeftBar(back);

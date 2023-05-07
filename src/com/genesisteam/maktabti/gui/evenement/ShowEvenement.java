@@ -18,7 +18,9 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Evenement;
+import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.services.EvenementService;
 import java.io.IOException;
@@ -27,29 +29,17 @@ import java.io.UnsupportedEncodingException;
 
 
 
-public class ShowEvenement extends Form {
+public class ShowEvenement extends BaseForm {
    
 
     
     EvenementService es = EvenementService.getInstance();
     
-    public ShowEvenement() {
+    public ShowEvenement(Resources res) {
                  setTitle("Liste des Evenements");
         setScrollableY(true);
       
-            Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
-
-       Command back = new Command("Retour",backIcon) {
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            try {
-                new Home().showBack();
-            } catch (IOException ex) {
-                System.out.println("");
-            }
-        }
-    };
-         getToolbar().addCommandToLeftBar(back);
+             super.addSideMenu(res);
         
 
         // widgets
@@ -92,7 +82,7 @@ public class ShowEvenement extends Form {
         @Override
         public void actionPerformed(ActionEvent evt) {
             Evenement evenement = es.getEvenement((int) e.getIdEvenement());
-            new EvenementDetails(evenement).show();
+            new EvenementDetails(evenement,res).show();
         }
     });
 

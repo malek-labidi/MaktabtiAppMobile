@@ -11,13 +11,14 @@ import com.codename1.ui.Form;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.layouts.BoxLayout;
 import com.genesisteam.maktabti.entities.Commentaire;
+import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.services.CommentaireService;
 
 /**
  *
  * @author SADOK
  */
-public class AjouterCommentaire extends Form {
+public class AjouterCommentaire extends BaseForm {
 
     public AjouterCommentaire(int id) {
 
