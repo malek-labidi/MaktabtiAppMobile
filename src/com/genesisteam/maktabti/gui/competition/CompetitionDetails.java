@@ -54,8 +54,8 @@ public class CompetitionDetails extends BaseForm {
             try {
                image = URLImage.createToStorage(
                         EncodedImage.createFromImage(Image.createImage("/load.png"), false),
-                        Statics.BASE_URL+"/photos/competitions/"+competition.getImage(),
-                        Statics.BASE_URL+"/photos/competitions/"+competition.getImage(),
+                        competition.getImage(),
+                        competition.getImage(),
                         URLImage.RESIZE_SCALE_TO_FILL
                 );    
             } catch (IOException ex) {
