@@ -21,6 +21,7 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Competition;
 import com.genesisteam.maktabti.gui.BaseForm;
+import com.genesisteam.maktabti.utilities.Statics;
 import java.io.IOException;
 
 /**
@@ -51,12 +52,12 @@ public class CompetitionDetails extends BaseForm {
               Image image = null;
             // EncodedImage enc = 
             try {
-                image =  URLImage.createToStorage(
+               image = URLImage.createToStorage(
                         EncodedImage.createFromImage(Image.createImage("/load.png"), false),
-                        competition.getImage(),
-                        competition.getImage(),
+                        Statics.BASE_URL+"/photos/competitions/"+competition.getImage(),
+                        Statics.BASE_URL+"/photos/competitions/"+competition.getImage(),
                         URLImage.RESIZE_SCALE_TO_FILL
-                );      
+                );    
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }

@@ -27,6 +27,7 @@ import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.services.CompetitionService;
 import com.genesisteam.maktabti.services.QuestionService;
+import com.genesisteam.maktabti.utilities.Statics;
 import java.io.IOException;
 import java.util.List;
 
@@ -80,8 +81,8 @@ public class GetCompetitions extends BaseForm {
             try {
                 image = URLImage.createToStorage(
                         EncodedImage.createFromImage(Image.createImage("/load.png"), false),
-                        c.getImage(),
-                        c.getImage(),
+                        Statics.BASE_URL+"/photos/competitions/"+c.getImage(),
+                        Statics.BASE_URL+"/photos/competitions/"+c.getImage(),
                         URLImage.RESIZE_SCALE_TO_FILL
                 );
             } catch (IOException ex) {
