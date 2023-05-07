@@ -117,7 +117,7 @@ public class EvenementService {
                 }
                 e.setDate(date);
 
-                e.setImage((String) item.get("image"));
+                 e.setImage((String) Statics.BASE_URL + "/photos/evenements/" + item.get("image"));
                 e.setLieu((String) item.get("lieu"));
 
                 evenements.add(e);
@@ -188,7 +188,7 @@ public class EvenementService {
                 }
                 evenement.setDate(date);
 
-                evenement.setImage((String) item.get("image"));
+                evenement.setImage((String) Statics.BASE_URL + "/photos/evenements/" + item.get("image"));
                 evenement.setLieu((String) item.get("lieu"));
                }
 
