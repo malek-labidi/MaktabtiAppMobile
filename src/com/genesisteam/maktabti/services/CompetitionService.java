@@ -13,7 +13,6 @@ import com.codename1.io.NetworkManager;
 import com.codename1.l10n.ParseException;
 import com.codename1.l10n.SimpleDateFormat;
 
-
 import com.codename1.ui.events.ActionListener;
 import com.genesisteam.maktabti.entities.Competition;
 import com.genesisteam.maktabti.utilities.Statics;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  *
@@ -97,7 +95,7 @@ public class CompetitionService {
                     System.out.println(ex.getMessage());
                 }
                 c.setDateFin(dateFin);
-                c.setImage((String) item.get("image"));
+                c.setImage((String) Statics.BASE_URL + "/photos/competitions/" + item.get("image"));
 
                 competitions.add(c);
             }
@@ -137,7 +135,6 @@ public class CompetitionService {
 
     public Competition getCompetition(Double id) {
         req = new ConnectionRequest();
-       
 
         // Build the API URL with the competition ID
         String fetchURL = Statics.BASE_URL + "/competitions/get/" + id;
@@ -168,7 +165,7 @@ public class CompetitionService {
 
     public Competition fromJson(String jsonText) {
         JSONParser jp = new JSONParser();
-     competition = new Competition();
+        competition = new Competition();
 
         try {
 
@@ -177,31 +174,31 @@ public class CompetitionService {
 
             //3
             List<Map<String, Object>> list = (List<Map<String, Object>>) CompetitionsListJSON.get("root");
-               for (Map<String, Object> item : list) {
+            for (Map<String, Object> item : list) {
 
-            competition.setIdCompetition((Double) item.get("idCompetition"));
-            competition.setIdLivre((String) item.get("idLivre"));
-            competition.setNom((String) item.get("nom"));
-            competition.setLienCompetition((String) item.get("lienCompetition"));
-            competition.setListePaticipants((String) item.get("listePaticipants"));
-            competition.setRecompense((String) item.get("recompense"));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date dateDebut = null;
-            try {
-                dateDebut = (Date) dateFormat.parse((String) item.get("dateDebut"));
-            } catch (ParseException ex) {
-                System.out.println(ex.getMessage());
+                competition.setIdCompetition((Double) item.get("idCompetition"));
+                competition.setIdLivre((String) item.get("idLivre"));
+                competition.setNom((String) item.get("nom"));
+                competition.setLienCompetition((String) item.get("lienCompetition"));
+                competition.setListePaticipants((String) item.get("listePaticipants"));
+                competition.setRecompense((String) item.get("recompense"));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateDebut = null;
+                try {
+                    dateDebut = (Date) dateFormat.parse((String) item.get("dateDebut"));
+                } catch (ParseException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                competition.setDateDebut(dateDebut);
+                Date dateFin = null;
+                try {
+                    dateFin = (Date) dateFormat.parse((String) item.get("dateFin"));
+                } catch (ParseException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                competition.setDateFin(dateFin);
+                competition.setImage((String) Statics.BASE_URL + "/photos/competitions/" + item.get("image"));
             }
-            competition.setDateDebut(dateDebut);
-            Date dateFin = null;
-            try {
-                dateFin = (Date) dateFormat.parse((String) item.get("dateFin"));
-            } catch (ParseException ex) {
-                System.out.println(ex.getMessage());
-            }
-            competition.setDateFin(dateFin);
-            competition.setImage((String) item.get("image"));
-               }
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
