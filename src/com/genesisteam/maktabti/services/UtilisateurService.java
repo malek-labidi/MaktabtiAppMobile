@@ -55,17 +55,16 @@ public class UtilisateurService {
         req = new ConnectionRequest();
         
     }
-    
-    //Signup
+        //Signup
     public void signup(TextField nom,TextField prenom,TextField email,TextField password ,TextField Numerotelephone,TextField Role , Resources res ) {
         
      
         
-        String url = "http://localhost:8000/register_rest?Nom="+nom.getText().toString()+"&Prenom="+prenom.getText().toString()+
-                "&Email="+email.getText().toString()+"&Mot_de_passe="+password.getText().toString()+"&Num_telephone="+Numerotelephone.getText().toString()+"&Role="+Role.getText().toString();
+        String url = Statics.BASE_URL+"register_rest?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
+                "&email="+email.getText().toString()+"&motDePasse="+password.getText().toString()+"&numTelephone="+Numerotelephone.getText().toString()+"&role="+Role.getText().toString();
         
         req.setUrl(url);
-               req.setPost(false);
+       
         //Control saisi
         if(nom.getText().equals(" ") && prenom.getText().equals(" ") && email.getText().equals(" ")&& password.getText().equals(" ")&& Numerotelephone.getText().equals(" ")&& Role.getText().equals(" ")) {
             
@@ -93,12 +92,13 @@ public class UtilisateurService {
     }
     
     
+    
 //    SignIn
     
     public void signin(TextField email,TextField password, Resources rs ) {
         
         
-        String url = "http://localhost:8000/login_rest?email="+email.getText().toString()+"&mot_de_passe="+password.getText().toString();
+        String url = "http://localhost:8000/login_rest?email="+email.getText().toString()+"&motDePasse="+password.getText().toString();
         req = new ConnectionRequest(url, false); //false ya3ni url mazlt matba3thtich lel server
         req.setUrl(url);
         
@@ -128,7 +128,7 @@ public class UtilisateurService {
                SessionManager.setprenom(user.get("prenom").toString());
                SessionManager.setEmail(user.get("email").toString());
                SessionManager.setMot_de_passe(user.get("mot_de_passe").toString());
-               float numtel = Float.parseFloat(user.get("num_telephone").toString());
+               int numtel = Integer.parseInt(user.get("num_telephone").toString());
                SessionManager.setNum_telephone((int)numtel);//jibt id ta3 user ly3ml login w sajltha fi session ta3i
                SessionManager.setRole(user.get("role").toString());
 
@@ -182,4 +182,21 @@ public class UtilisateurService {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return resultOk;
    }*/
+    
+        public boolean update (int id,TextField tfnom,TextField tfEmail,TextField tfprenom,TextField tfPhone,TextField tfrole)
+    { 
+
+       String url = Statics.BASE_URL+"/updateprofile/"+id+"?nom="+tfnom.getText()+"&email="+tfEmail.getText()+"&prenom="+tfprenom.getText()+"&numTelephone="+tfPhone.getText()+"&role="+tfrole.getText();
+       req.setUrl(url);
+       req.addResponseListener(new ActionListener<NetworkEvent>(){ 
+           @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+             }
+    });
+        System.out.println(""+resultOk);
+       NetworkManager.getInstance().addToQueue(req);
+        return resultOk;
+    }
 }
