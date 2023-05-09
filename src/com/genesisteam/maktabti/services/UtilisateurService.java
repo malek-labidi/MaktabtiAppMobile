@@ -200,4 +200,21 @@ public class UtilisateurService {
        NetworkManager.getInstance().addToQueue(req);
         return resultOk;
     }
+        
+    public boolean updatepassword (int id,TextField tfpassword)
+    { 
+
+       String url = Statics.BASE_URL+"/updatePasswordMobile/"+id+"?motDePasse="+tfpassword.getText();
+       req.setUrl(url);
+       req.addResponseListener(new ActionListener<NetworkEvent>(){ 
+           @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+             }
+    });
+        System.out.println(""+resultOk);
+       NetworkManager.getInstance().addToQueue(req);
+        return resultOk;
+    }
 }

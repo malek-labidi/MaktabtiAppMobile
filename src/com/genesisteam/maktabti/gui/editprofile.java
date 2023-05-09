@@ -59,8 +59,9 @@ public class editprofile extends BaseForm{
         
 
         Button Save = new Button("Save");
+        Button password = new Button("Change password");
 
-        
+        //Design boutton Update
         Save.getAllStyles().setBgTransparency(0);
         Save.getAllStyles().setFgColor(0xFFFFFF);
         Border roundedBorder = Border.createRoundBorder(100, 100);
@@ -69,6 +70,16 @@ public class editprofile extends BaseForm{
         Save.getAllStyles().setPaddingLeft(20);
         Container buttonloginContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         buttonloginContainer.add(Save);
+        //DesignBoutton Changer mot de passe
+        password.getAllStyles().setBgTransparency(0);
+        password.getAllStyles().setFgColor(0xFFFFFF);
+        Border roundedBorder5 = Border.createRoundBorder(100, 100);
+        password.getAllStyles().setBorder(roundedBorder);
+        password.getAllStyles().setPaddingRight(20);
+        password.getAllStyles().setPaddingLeft(20);
+        Container buttonchangepasswordcontainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        buttonchangepasswordcontainer.add(password);
+        //Design il inputs
         tfnom.getAllStyles().setAlignment(Component.CENTER);
         tfEmail.getAllStyles().setAlignment(Component.CENTER);
         tfprenom.getAllStyles().setAlignment(Component.CENTER);
@@ -88,8 +99,10 @@ public class editprofile extends BaseForm{
             Dialog.show("Success","account is saved","OK",null);
             new Home(res).show();
         });
+        password.addActionListener(e -> new editpassword(res).show());
+
         
-        this.addAll(tfnom, tfEmail, tfprenom,tfrole,buttonloginContainer);
+        this.addAll(tfnom, tfEmail, tfprenom,tfrole,buttonloginContainer,buttonchangepasswordcontainer);
 
     }
 }
