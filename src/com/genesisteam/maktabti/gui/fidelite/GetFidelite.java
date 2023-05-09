@@ -12,6 +12,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Fidelite;
 import com.genesisteam.maktabti.gui.BaseForm;
+import com.genesisteam.maktabti.gui.SessionManager;
 import com.genesisteam.maktabti.services.FideliteService;
 
 /**
@@ -24,15 +25,22 @@ public class GetFidelite extends BaseForm{
         
         setScrollableY(true);
         super.addSideMenu(res);
-        Fidelite f = fs.getFidelite(11);
+        Fidelite f = fs.getFidelite(SessionManager.getId());
         Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        
+          Label Nom = new Label(SessionManager.getNom()+ " " + SessionManager.getPrenom());
+    Nom.getUnselectedStyle().setFgColor(0x00377E); // définir la couleur de texte en rouge
+    Nom.getUnselectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, 18)); 
+    
          Label totalAchatLabel = new Label("Total d'achat : " + f.getTotal_achat());
-    totalAchatLabel.getUnselectedStyle().setFgColor(ColorUtil.rgb(255, 0, 0)); // définir la couleur de texte en rouge
+    totalAchatLabel.getUnselectedStyle().setFgColor(0x00377E); // définir la couleur de texte en rouge
     totalAchatLabel.getUnselectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, 18)); // définir une police de caractère en gras
     
     Label typeAchatLabel = new Label("Type d'achat : " + f.getType());
-    typeAchatLabel.getUnselectedStyle().setFgColor(ColorUtil.rgb(0, 0, 255)); // définir la couleur de texte en bleu
-    typeAchatLabel.getUnselectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_ITALIC, 16)); 
+    typeAchatLabel.getUnselectedStyle().setFgColor(0x00377E); // définir la couleur de texte en bleu
+    typeAchatLabel.getUnselectedStyle().setFont(Font.createSystemFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, 16)); 
+        content.add(Nom);
+
     content.add(totalAchatLabel);
     content.add(typeAchatLabel);
          add(content);
