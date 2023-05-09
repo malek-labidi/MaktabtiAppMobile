@@ -184,10 +184,10 @@ public class UtilisateurService {
         return resultOk;
    }*/
     
-        public boolean update (int id,TextField tfnom,TextField tfEmail,TextField tfprenom,TextField tfPhone,TextField tfrole)
+        public boolean update (int id,TextField tfnom,TextField tfEmail,TextField tfprenom,TextField tfrole)
     { 
 
-       String url = Statics.BASE_URL+"/updateprofile/"+id+"?nom="+tfnom.getText()+"&email="+tfEmail.getText()+"&prenom="+tfprenom.getText()+"&numTelephone="+tfPhone.getText()+"&role="+tfrole.getText();
+       String url = Statics.BASE_URL+"/updateprofile/"+id+"?nom="+tfnom.getText()+"&email="+tfEmail.getText()+"&prenom="+tfprenom.getText()+"&role="+tfrole.getText();
        req.setUrl(url);
        req.addResponseListener(new ActionListener<NetworkEvent>(){ 
            @Override
