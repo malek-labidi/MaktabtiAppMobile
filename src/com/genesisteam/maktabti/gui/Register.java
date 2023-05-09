@@ -6,13 +6,16 @@
 package com.genesisteam.maktabti.gui;
 
 import com.codename1.components.FloatingHint;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Font;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.Toolbar;
@@ -32,15 +35,29 @@ import com.genesisteam.maktabti.entities.Utilisateur;
 public class Register extends BaseForm {
     
     public Register( Resources res) {
-        setTitle("S'enregistrer");
-        setScrollableY(true);
-        setUIID("Register Page");
+//////////////////////////////// create the image viewer and add it to a container
+    EncodedImage enc = null;
         try {
-            setBgImage(EncodedImage.create("/home-img.png"));
+            enc = EncodedImage.create("/logo.png");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-
+    Image scaledImage = enc.scaledWidth(Display.getInstance().getDisplayWidth() / 3)
+                          .scaledHeight(Display.getInstance().getDisplayHeight() / 5);
+    // Create the ImageViewer with the scaled image
+    ImageViewer imgv = new ImageViewer(scaledImage);
+    // Create the container and add the ImageViewer to it
+    Container imgContainer = new Container(new FlowLayout(Component.CENTER));
+    imgContainer.add(imgv);
+////////////////////////////////
+        
+        // create the welcome label and add it to a container///////
+        Label welcomeLabel = new Label("S'inscrire");
+        welcomeLabel.getAllStyles().setFgColor(000000);
+        welcomeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+        Container welcomeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        welcomeContainer.add(welcomeLabel);
+        /////////////////////////////////////////////////////////////
       
         TextField nom = new TextField("", "nom", 20, TextField.ANY);
         TextField prenom = new TextField("", "prenom", 20, TextField.ANY);
@@ -64,7 +81,7 @@ public class Register extends BaseForm {
         
         
         signIn.getAllStyles().setBgTransparency(0);
-        signIn.getAllStyles().setFgColor(0xFFFFFF);
+        signIn.getAllStyles().setFgColor(000000);
         Border roundedBorder = Border.createRoundBorder(100, 100);
         signIn.getAllStyles().setBorder(roundedBorder);
         signIn.getAllStyles().setPaddingRight(20);
@@ -93,7 +110,12 @@ public class Register extends BaseForm {
         password.getAllStyles().setAlignment(Component.CENTER);
         numtelephone.getAllStyles().setAlignment(Component.CENTER);
         role.getAllStyles().setAlignment(Component.CENTER);
-
+        imgContainer.getAllStyles().setMarginTop(400);
+        imgContainer.getAllStyles().setMarginRight(90);
+        imgContainer.getAllStyles().setAlignment(CENTER);
+        welcomeContainer.getAllStyles().setMarginTop(20);
+        welcomeContainer.getAllStyles().setAlignment(Component.CENTER);
+        
         signIn.addActionListener(e -> new Login(res).show());
         
 
@@ -103,7 +125,7 @@ public class Register extends BaseForm {
             new Login(res).show();
         });
         
-        this.addAll(nom, prenom, email,password,numtelephone,role,buttonsContainer,buttonloginContainer);
+        this.addAll(welcomeContainer,imgContainer,nom, prenom, email,password,numtelephone,role,buttonsContainer,buttonloginContainer);
 
     }
 }
