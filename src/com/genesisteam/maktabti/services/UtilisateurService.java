@@ -60,9 +60,10 @@ public class UtilisateurService {
         
      
         
-        String url = Statics.BASE_URL+"register_rest?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
+        String url = Statics.BASE_URL+"/signup?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
                 "&email="+email.getText().toString()+"&motDePasse="+password.getText().toString()+"&numTelephone="+Numerotelephone.getText().toString()+"&role="+Role.getText().toString();
         
+        //http://localhost:8000/signup?nom=wassim&prenom=hachani&email=wassim6@gmail.com&motDePasse=wassim123A&numTelephone=54100060&role=Administrateur
         req.setUrl(url);
        
         //Control saisi
