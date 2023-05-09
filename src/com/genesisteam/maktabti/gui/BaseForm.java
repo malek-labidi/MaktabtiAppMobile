@@ -79,7 +79,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Réclamations", FontImage.MATERIAL_MESSAGE,e ->{ /*new Home(res).show()*/});
         tb.addMaterialCommandToSideMenu("Profil", FontImage.MATERIAL_PERSON,e ->{ /*new Home(res).show()*/});
         tb.addMaterialCommandToSideMenu("Déconnecter", FontImage.MATERIAL_EXIT_TO_APP, e -> {
-        new Welcome().show();
+        new Welcome(res).show();
         SessionManager.pref.clearAll();
             Storage.getInstance().clearStorage();
             Storage.getInstance().clearCache();

@@ -17,6 +17,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.services.UtilisateurService;
 import java.io.IOException;
 import com.genesisteam.maktabti.entities.Utilisateur;
@@ -27,7 +28,7 @@ import com.genesisteam.maktabti.entities.Utilisateur;
  */
 public class Register extends BaseForm {
     
-    public Register() {
+    public Register( Resources res) {
         setTitle("S'enregistrer");
         setScrollableY(true);
      
@@ -53,13 +54,13 @@ public class Register extends BaseForm {
         Button next = new Button("Register");
         Button signIn = new Button("Vous avez déja un compte ? \n S'authentifier");
         
-        signIn.addActionListener(e -> new Login().show());
+        signIn.addActionListener(e -> new Login(res).show());
         
 
         next.addActionListener((e) -> {
             UtilisateurService.getInstance().signup(nom,prenom,email,password, numtelephone,role,null);
             Dialog.show("Success","account is saved","OK",null);
-            new Login().show();
+            new Login(res).show();
         });
         
         this.addAll(nom, prenom, email,password,numtelephone,role,next,signIn);

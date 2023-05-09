@@ -21,15 +21,16 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.RoundBorder;
+import com.codename1.ui.util.Resources;
 import java.io.IOException;
 
 /**
  *
  * @author admin
  */
-public class Welcome extends Form {
+public class Welcome extends BaseForm {
 
-    public Welcome() {
+    public Welcome(Resources res) {
         // set the UIID and background image of the form
         setUIID("WELCOMEPAGE");
         try {
@@ -76,7 +77,7 @@ public class Welcome extends Form {
         // create the login and signup buttons and add them to a container
         Button loginButton = new Button("Se connecter");
          loginButton.addActionListener(e -> {
-    new Login().show();
+    new Login(res).show();
 });
         loginButton.getAllStyles().setBgTransparency(0);
         loginButton.getAllStyles().setFgColor(0xFFFFFF);
@@ -89,7 +90,7 @@ public class Welcome extends Form {
 
         Button signupButton = new Button("S'inscrire");
         signupButton.addActionListener(e -> {
-    new Register().show();
+    new Register(res).show();
 });
         signupButton.getAllStyles().setBgColor(0x00377E);
         signupButton.getAllStyles().setFgColor(0x00377E);

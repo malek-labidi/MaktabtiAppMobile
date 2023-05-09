@@ -17,6 +17,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.ui.Image;
 
 import com.genesisteam.maktabti.gui.Home;
+import com.genesisteam.maktabti.gui.Welcome;
 
 
 
@@ -64,7 +65,7 @@ public class MyApplication {
         }
 
      
-new Home(theme).show();     
+new Welcome(theme).show();     
             
               
         

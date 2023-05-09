@@ -16,6 +16,7 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.services.UtilisateurService;
 import java.io.IOException;
 
@@ -23,8 +24,8 @@ import java.io.IOException;
  *
  * @author wassim
  */
-public class Login extends Form{
-  public Login() {
+public class Login extends BaseForm{
+  public Login(Resources res) {
         
 
         setTitle("S'authentifier");
@@ -42,13 +43,14 @@ public class Login extends Form{
         
 
         
-        signUp.addActionListener(e -> new Register().show());
+        signUp.addActionListener(e -> new Register(res).show());
         
         
         
         signIn.addActionListener(e -> 
         {
              UtilisateurService.getInstance().signin(username, password, null);
+             new Home(res).show();
 
         });
 

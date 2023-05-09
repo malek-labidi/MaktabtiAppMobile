@@ -122,22 +122,23 @@ public class UtilisateurService {
                 
              
                 //Session 
-               float id = Float.parseFloat(user.get("id").toString());
+               float id = Float.parseFloat(user.get("idUtilisateur").toString());
                SessionManager.setId((int)id);//jibt id ta3 user ly3ml login w sajltha fi session ta3i
                SessionManager.setNom(user.get("nom").toString());
                SessionManager.setprenom(user.get("prenom").toString());
                SessionManager.setEmail(user.get("email").toString());
-               SessionManager.setMot_de_passe(user.get("mot_de_passe").toString());
-               int numtel = Integer.parseInt(user.get("num_telephone").toString());
+               SessionManager.setMot_de_passe(user.get("motDePasse").toString());
+                  float numtel = Float.parseFloat(user.get("numTelephone").toString());
+              // int numtel = Integer.parseInt(user.get("numTelephone").toString());
                SessionManager.setNum_telephone((int)numtel);//jibt id ta3 user ly3ml login w sajltha fi session ta3i
                SessionManager.setRole(user.get("role").toString());
 
                 System.out.println("current user"+SessionManager.getEmail()+","+SessionManager.getMot_de_passe());
           
-                if(user.size() >0 ) // l9a user
-                    new Home(theme).show();
+              /*  if(user.size() >0 ) // l9a user
+                    new Home().show();
                     System.out.println("welcome");
-                    
+                 */   
                 }
             
             }catch(Exception ex) {
