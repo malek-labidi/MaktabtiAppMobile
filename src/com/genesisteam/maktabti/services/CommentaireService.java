@@ -9,6 +9,7 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.genesisteam.maktabti.entities.Commentaire;
+import com.genesisteam.maktabti.gui.SessionManager;
 import com.genesisteam.maktabti.utilities.Statics;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class CommentaireService {
     public void ajoutCommentaire(Commentaire c) {
        
 
-         String url =Statics.BASE_URL+"/evenements/commentaire/neww/"+c.getIdEvenement()+"?commentaire="+c.getCommentaire()+"&idClient="+c.getIdClient(); // aa sorry n3adi getId lyheya mech ta3 user ta3 reclamation
+         String url =Statics.BASE_URL+"/evenements/commentaire/neww/"+c.getIdEvenement()+"/"+SessionManager.getId()+"?commentaire="+c.getCommentaire()+"&idClient="+c.getIdClient(); // aa sorry n3adi getId lyheya mech ta3 user ta3 reclamation
         
         req.setUrl(url);
         req.setPost(false);
