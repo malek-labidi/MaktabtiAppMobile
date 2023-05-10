@@ -35,7 +35,7 @@ public class EvenementDetails extends BaseForm {
         // add back button to toolbar
         Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
 
-        Command back = new Command("Retour", backIcon) {
+        Command back = new Command("", backIcon) {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 new ShowEvenement(res).showBack();
@@ -46,7 +46,6 @@ public class EvenementDetails extends BaseForm {
         Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
         Image image = null;
-        // EncodedImage enc = 
         try {
             image = URLImage.createToStorage(
                     EncodedImage.createFromImage(Image.createImage("/load.png"), false),
@@ -72,7 +71,7 @@ public class EvenementDetails extends BaseForm {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                new AjouterCommentaire((int)evenement.getIdEvenement()).show();
+                new AjouterCommentaire((int)evenement.getIdEvenement(),evenement,res).show();
             }
         });
         content.add(addButton);

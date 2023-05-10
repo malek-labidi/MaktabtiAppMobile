@@ -46,19 +46,7 @@ public class GetCompetitions extends BaseForm {
         setTitle("Liste des Compétitions");
         setScrollableY(true);
         super.addSideMenu(res);
-        /*Image backIcon = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, UIManager.getInstance().getComponentStyle("TitleCommand"));
-
-        Command back = new Command("", backIcon) {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    new Home().showBack();
-                } catch (IOException ex) {
-                    System.out.println("");
-                }
-            }
-        };
-        getToolbar().addCommandToLeftBar(back);*/
+        
 
         // widgets
         Container cards = new Container(new BoxLayout(BoxLayout.Y_AXIS));
