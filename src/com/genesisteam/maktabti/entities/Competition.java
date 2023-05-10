@@ -12,14 +12,14 @@ import java.util.Date;
  * @author admin
  */
 public class Competition {
-    private Double idCompetition;
+    private int idCompetition;
     private String nom , lienCompetition,listePaticipants,idLivre,image,recompense;
     private Date dateDebut,dateFin;
 
     public Competition() {
     }
 
-    public Competition(Double idCompetition, String nom, String lienCompetition, String listePaticipants, String idLivre, String image, String recompense, Date dateDebut, Date dateFin) {
+    public Competition(int idCompetition, String nom, String lienCompetition, String listePaticipants, String idLivre, String image, String recompense, Date dateDebut, Date dateFin) {
         this.idCompetition = idCompetition;
         this.nom = nom;
         this.lienCompetition = lienCompetition;
@@ -42,11 +42,11 @@ public class Competition {
         this.dateFin = dateFin;
     }
 
-    public Double getIdCompetition() {
+    public int getIdCompetition() {
         return idCompetition;
     }
 
-    public void setIdCompetition(Double idCompetition) {
+    public void setIdCompetition(int idCompetition) {
         this.idCompetition = idCompetition;
     }
 

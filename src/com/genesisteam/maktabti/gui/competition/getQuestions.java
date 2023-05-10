@@ -25,6 +25,8 @@ import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Question;
 import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
+import com.genesisteam.maktabti.services.CompetitionService;
+import com.genesisteam.maktabti.services.CompetitionService.ParticiperCallback;
 import com.genesisteam.maktabti.services.QuestionService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,10 +38,12 @@ import java.util.List;
  */
 public class getQuestions extends BaseForm {
 
-    QuestionService cs = QuestionService.getInstance();
+    QuestionService qs = QuestionService.getInstance();
     private ArrayList<ButtonGroup> buttonGroups;
     private List<Question> questions;
     private Resources theme;
+    CompetitionService comps = CompetitionService.getInstance();
+    int idcompetition;
 
     public getQuestions(List<Question> questions, Resources res) {
         // setSingleLineTextArea(false);
@@ -79,6 +83,7 @@ public class getQuestions extends BaseForm {
             choicesContainer.add(choice2Button);
             choicesContainer.add(choice3Button);
             questionContainer.add(BorderLayout.CENTER, choicesContainer);
+            idcompetition = question.getIdCompetition();
 
             // Add question container to the form
             add(questionContainer);
@@ -87,8 +92,19 @@ public class getQuestions extends BaseForm {
         // Add submit button
         Button submitButton = new Button("Submit");
         submitButton.addActionListener(evt -> {
+            comps.participer(idcompetition, new ParticiperCallback() {
+    @Override
+    public void onSuccess(String message) {
+        ToastBar.showMessage(message, FontImage.MATERIAL_CHECK);
+    }
+
+    @Override
+    public void onError(String message) {
+            ToastBar.showMessage(message, FontImage.MATERIAL_CHECK);
+    }
+});
             int score = calculateScore();
-            ToastBar.showMessage("Your score is " + score, FontImage.MATERIAL_CHECK);
+          //  ToastBar.showMessage("hgfj", FontImage.MATERIAL_CHECK);
             // Dialog.show("Score",  + score, "OK", null);
         });
         add(submitButton);
