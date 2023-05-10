@@ -33,7 +33,7 @@ public class Login extends BaseForm{
   public Login(Resources res) {
         
 
-
+setScrollableY(false);
 //////////////////////////////// create the image viewer and add it to a container
     EncodedImage enc = null;
         try {
@@ -46,16 +46,15 @@ public class Login extends BaseForm{
     // Create the ImageViewer with the scaled image
     ImageViewer imgv = new ImageViewer(scaledImage);
     // Create the container and add the ImageViewer to it
-    Container imgContainer = new Container(new FlowLayout(Component.CENTER));
+    Container imgContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
     imgContainer.add(imgv);
 ////////////////////////////////
 
-        TextField username = new TextField("", "email", 20, TextField.ANY);
-        TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
-        username.setSingleLineTextArea(false);
-        password.setSingleLineTextArea(false);
-        Button signIn = new Button("S'authentifier");
-        Button signUp = new Button("Créer un compte");
+        TextField username = new TextField("", "Email", 20, TextField.ANY);
+        TextField password = new TextField("", "Mot de passe", 20, TextField.PASSWORD);
+        
+        Button signIn = new Button("Se connecter");
+        Button signUp = new Button("S'inscrire");
 
         signIn.getAllStyles().setBgTransparency(0);
         signIn.getAllStyles().setFgColor(000000);
@@ -66,15 +65,6 @@ public class Login extends BaseForm{
         Container buttonloginContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         buttonloginContainer.add(signIn);
 
-        
-        // create the welcome label and add it to a container///////
-        Label welcomeLabel = new Label("S'authentifier");
-        welcomeLabel.getAllStyles().setFgColor(000000);
-        welcomeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
-        Container welcomeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        welcomeContainer.add(welcomeLabel);
-        /////////////////////////////////////////////////////////////
-        
         //Register Page
         signUp.getAllStyles().setBgColor(0xFFFFFF);
         signUp.getAllStyles().setBorder(roundedBorder);
@@ -89,25 +79,23 @@ public class Login extends BaseForm{
         buttonloginContainer.getAllStyles().setAlignment(Component.CENTER);
         buttonsContainer.getAllStyles().setPaddingTop(20);
         buttonsContainer.getAllStyles().setAlignment(Component.CENTER);
-        username.getAllStyles().setAlignment(Component.CENTER);
-        password.getAllStyles().setAlignment(Component.CENTER);
+       
         imgContainer.getAllStyles().setMarginTop(500);
-        imgContainer.getAllStyles().setMarginRight(90);
         imgContainer.getAllStyles().setAlignment(CENTER);
-        welcomeContainer.getAllStyles().setMarginTop(20);
-        welcomeContainer.getAllStyles().setAlignment(Component.CENTER);
+        
 
 
         signIn.addActionListener(e -> 
         {
              UtilisateurService.getInstance().signin(username, password, null);
+             
              new Home(res).show();
 
         });
 
-                this.addAll(welcomeContainer,imgContainer,username, password, buttonloginContainer,buttonsContainer);
+                this.addAll(imgContainer,username, password, buttonloginContainer,buttonsContainer);
 
-        
+         setLayout(new FlowLayout(Component.CENTER));
         
         
         

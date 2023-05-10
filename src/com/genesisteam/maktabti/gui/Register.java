@@ -35,6 +35,8 @@ import com.genesisteam.maktabti.entities.Utilisateur;
 public class Register extends BaseForm {
     
     public Register( Resources res) {
+        
+        setScrollableY(false);
 //////////////////////////////// create the image viewer and add it to a container
     EncodedImage enc = null;
         try {
@@ -50,34 +52,17 @@ public class Register extends BaseForm {
     Container imgContainer = new Container(new FlowLayout(Component.CENTER));
     imgContainer.add(imgv);
 ////////////////////////////////
-        
-        // create the welcome label and add it to a container///////
-        Label welcomeLabel = new Label("S'inscrire");
-        welcomeLabel.getAllStyles().setFgColor(000000);
-        welcomeLabel.getAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
-        Container welcomeContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        welcomeContainer.add(welcomeLabel);
-        /////////////////////////////////////////////////////////////
+
       
-        TextField nom = new TextField("", "nom", 20, TextField.ANY);
-        TextField prenom = new TextField("", "prenom", 20, TextField.ANY);
-        TextField email = new TextField("", "E-Mail", 20, TextField.EMAILADDR);
-        TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
+        TextField nom = new TextField("", "Nom", 20, TextField.ANY);
+        TextField prenom = new TextField("", "Prenom", 20, TextField.ANY);
+        TextField email = new TextField("", "Email", 20, TextField.EMAILADDR);
+        TextField password = new TextField("", "Mot de passe", 20, TextField.PASSWORD);
         TextField numtelephone = new TextField("", "Numéro de téléphone", 20, TextField.ANY);
         TextField role = new TextField("", "Role", 20, TextField.ANY);
-        
-        
-        
-        
-        
-        nom.setSingleLineTextArea(false);
-        prenom.setSingleLineTextArea(false);
-        email.setSingleLineTextArea(false);
-        password.setSingleLineTextArea(false);
-        numtelephone.setSingleLineTextArea(false);
-        role.setSingleLineTextArea(false);
-        Button next = new Button("Register");
-        Button signIn = new Button("S'authentifier");
+       
+        Button next = new Button("Créer un compte");
+        Button signIn = new Button("Se Connecter");
         
         
         signIn.getAllStyles().setBgTransparency(0);
@@ -104,28 +89,22 @@ public class Register extends BaseForm {
         buttonloginContainer.getAllStyles().setAlignment(Component.CENTER);
         buttonsContainer.getAllStyles().setPaddingTop(20);
         buttonsContainer.getAllStyles().setAlignment(Component.CENTER);
-        nom.getAllStyles().setAlignment(Component.CENTER);
-        prenom.getAllStyles().setAlignment(Component.CENTER);
-        email.getAllStyles().setAlignment(Component.CENTER);
-        password.getAllStyles().setAlignment(Component.CENTER);
-        numtelephone.getAllStyles().setAlignment(Component.CENTER);
-        role.getAllStyles().setAlignment(Component.CENTER);
-        imgContainer.getAllStyles().setMarginTop(400);
-        imgContainer.getAllStyles().setMarginRight(90);
+       
+        imgContainer.getAllStyles().setMarginTop(300);
+       
         imgContainer.getAllStyles().setAlignment(CENTER);
-        welcomeContainer.getAllStyles().setMarginTop(20);
-        welcomeContainer.getAllStyles().setAlignment(Component.CENTER);
+        
         
         signIn.addActionListener(e -> new Login(res).show());
         
 
         next.addActionListener((e) -> {
             UtilisateurService.getInstance().signup(nom,prenom,email,password, numtelephone,role,null);
-            Dialog.show("Success","account is saved","OK",null);
+            Dialog.show("Success","Votre compte est crée avec succés!","OK",null);
             new Login(res).show();
         });
         
-        this.addAll(welcomeContainer,imgContainer,nom, prenom, email,password,numtelephone,role,buttonsContainer,buttonloginContainer);
-
+        this.addAll(imgContainer,nom, prenom, email,password,numtelephone,role,buttonsContainer,buttonloginContainer);
+ setLayout(new FlowLayout(Component.CENTER));
     }
 }
