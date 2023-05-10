@@ -20,10 +20,10 @@ import com.genesisteam.maktabti.services.ReclamationService;
  * @author Ilef
  */
 public class AjouterReclamation extends BaseForm{
-      public AjouterReclamation(int id) {
+      public AjouterReclamation(int id,Resources res) {
 
         setLayout(new BoxLayout(BoxLayout.Y_AXIS));
-
+ super.addSideMenu(res);
 // Create a text area for entering the comment
         TextArea messageTextArea = new TextArea();
         messageTextArea.setHint("Entrez une message...");
