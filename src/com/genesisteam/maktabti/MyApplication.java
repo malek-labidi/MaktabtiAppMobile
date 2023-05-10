@@ -3,20 +3,14 @@ package com.genesisteam.maktabti;
 
 import com.codename1.io.ConnectionRequest;
 import static com.codename1.ui.CN.*;
-import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Label;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
 import com.codename1.ui.Toolbar;
-import java.io.IOException;
-import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.io.NetworkEvent;
 import com.codename1.ui.Image;
 
-import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.gui.Welcome;
 
 
@@ -65,8 +59,9 @@ public class MyApplication {
         }
 
      
-new Welcome(theme).show();     
-            
+    // Create an instance of AjouterReclamation with an ID
+  // new AjouterReclamation(TOP).show();    
+      new Welcome(theme).show();
               
         
 
