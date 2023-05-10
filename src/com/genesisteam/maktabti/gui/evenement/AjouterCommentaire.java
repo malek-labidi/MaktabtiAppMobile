@@ -39,9 +39,8 @@ public class AjouterCommentaire extends BaseForm {
             } else {
                 // Add the comment to the database or perform other operations
 
-                Commentaire r = new Commentaire(14, id, commentTextArea.getText());
-                //user connecté
-                //SessionManager.getId()
+                Commentaire r = new Commentaire(id, commentTextArea.getText());
+                
 
                 System.out.println("data commentaire = " + r);
 
