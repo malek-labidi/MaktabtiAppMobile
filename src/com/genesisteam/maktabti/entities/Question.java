@@ -10,8 +10,8 @@ package com.genesisteam.maktabti.entities;
  * @author admin
  */
 public class Question {
-    private Double idQuestion;
-    private Double idCompetition;
+    private int idQuestion;
+    private int idCompetition;
     private String question;
     private String choix1;
     private String choix2;
@@ -21,7 +21,7 @@ public class Question {
     public Question() {
     }
 
-    public Question(Double idQuestion, Double idCompetition, String question, String choix1, String choix2, String choix3, String reponseCorrect) {
+    public Question(int idQuestion, int idCompetition, String question, String choix1, String choix2, String choix3, String reponseCorrect) {
         this.idQuestion = idQuestion;
         this.idCompetition = idCompetition;
         this.question = question;
@@ -31,7 +31,7 @@ public class Question {
         this.reponseCorrect = reponseCorrect;
     }
 
-    public Question(Double idCompetition, String question, String choix1, String choix2, String choix3, String reponseCorrect) {
+    public Question(int idCompetition, String question, String choix1, String choix2, String choix3, String reponseCorrect) {
         this.idCompetition = idCompetition;
         this.question = question;
         this.choix1 = choix1;
@@ -40,19 +40,19 @@ public class Question {
         this.reponseCorrect = reponseCorrect;
     }
 
-    public Double getIdQuestion() {
+    public int getIdQuestion() {
         return idQuestion;
     }
 
-    public void setIdQuestion(Double idQuestion) {
+    public void setIdQuestion(int idQuestion) {
         this.idQuestion = idQuestion;
     }
 
-    public Double getIdCompetition() {
+    public int getIdCompetition() {
         return idCompetition;
     }
 
-    public void setIdCompetition(Double idCompetition) {
+    public void setIdCompetition(int idCompetition) {
         this.idCompetition = idCompetition;
     }
 

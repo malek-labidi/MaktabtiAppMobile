@@ -15,6 +15,7 @@ import com.codename1.l10n.SimpleDateFormat;
 
 import com.codename1.ui.events.ActionListener;
 import com.genesisteam.maktabti.entities.Competition;
+import com.genesisteam.maktabti.gui.SessionManager;
 import com.genesisteam.maktabti.utilities.Statics;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class CompetitionService {
     boolean resultOK = false;
     List<Competition> competitions;
     Competition competition;
+    String message;
 
     //Constructor
     private CompetitionService() {
@@ -74,7 +76,8 @@ public class CompetitionService {
             for (Map<String, Object> item : list) {
 
                 Competition c = new Competition();
-                c.setIdCompetition((Double) item.get("idCompetition"));
+                float idCompetition = Float.parseFloat(item.get("idCompetition").toString());
+                c.setIdCompetition((int) idCompetition);
                 c.setIdLivre((String) item.get("idLivre"));
                 c.setNom((String) item.get("nom"));
                 c.setLienCompetition((String) item.get("lienCompetition"));
@@ -133,7 +136,7 @@ public class CompetitionService {
         return competitions;
     }
 
-    public Competition getCompetition(Double id) {
+    public Competition getCompetition(int id) {
         req = new ConnectionRequest();
 
         // Build the API URL with the competition ID
@@ -175,8 +178,8 @@ public class CompetitionService {
             //3
             List<Map<String, Object>> list = (List<Map<String, Object>>) CompetitionsListJSON.get("root");
             for (Map<String, Object> item : list) {
-
-                competition.setIdCompetition((Double) item.get("idCompetition"));
+                float idCompetition = Float.parseFloat(item.get("idCompetition").toString());
+                competition.setIdCompetition((int) idCompetition);
                 competition.setIdLivre((String) item.get("idLivre"));
                 competition.setNom((String) item.get("nom"));
                 competition.setLienCompetition((String) item.get("lienCompetition"));
@@ -205,5 +208,63 @@ public class CompetitionService {
         }
         return competition;
     }
+
+   public interface ParticiperCallback {
+    void onSuccess(String message);
+    void onError(String message);
+}
+
+public void participer(int id, ParticiperCallback callback) {
+    req = new ConnectionRequest();
+
+    // Build the API URL with the competition ID
+    String fetchURL = Statics.BASE_URL + "/competitions/participer/rest/" + id+"/"+SessionManager.getId();
+    System.out.println(fetchURL);
+
+    req.setUrl(fetchURL);
+
+    req.setPost(false);
+
+    req.addResponseListener(new ActionListener<NetworkEvent>() {
+        @Override
+        public void actionPerformed(NetworkEvent evt) {
+            try {
+                String message = fromJsonMessage(new String(req.getResponseData(), "UTF-8"));
+                if (message != null && message.startsWith("success")) {
+                    callback.onSuccess(message);
+                } else {
+                    callback.onError(message);
+                }
+            } catch (UnsupportedEncodingException ex) {
+                callback.onError(ex.getMessage());
+            }
+        }
+    });
+
+    NetworkManager.getInstance().addToQueueAndWait(req);
+}
+
+public String fromJsonMessage(String jsonText) {
+    JSONParser jp = new JSONParser();
+    String message = "";
+    try {
+
+        Map<String, Object> CompetitionsListJSON = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+        List<Map<String, Object>> list = (List<Map<String, Object>>) CompetitionsListJSON.get("root");
+        for (Map<String, Object> item : list) {
+
+            if (item.get("success") != null) {
+                message = (String) item.get("success");
+            } else if (item.get("error") != null) {
+                message = (String) item.get("error");
+            }
+        }
+
+    } catch (IOException ex) {
+        System.out.println(ex.getMessage());
+    }
+    return message;
+}
 
 }
