@@ -24,6 +24,7 @@ import com.genesisteam.maktabti.gui.Login;
 import com.genesisteam.maktabti.gui.competition.GetCompetitions;
 import com.genesisteam.maktabti.gui.evenement.ShowEvenement;
 import com.genesisteam.maktabti.gui.fidelite.GetFidelite;
+import com.genesisteam.maktabti.gui.offre.GetOffre;
 import com.genesisteam.maktabti.gui.reclamation.AjouterReclamation;
 
 /**
@@ -78,7 +79,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Livres", FontImage.MATERIAL_BOOK,e -> new GetLivre(res).show());
         tb.addMaterialCommandToSideMenu("Competitions", FontImage.MATERIAL_WALLET_GIFTCARD,e -> new GetCompetitions(res).show());
         tb.addMaterialCommandToSideMenu("Evenements", FontImage.MATERIAL_EVENT,e -> new ShowEvenement(res).show());
-        tb.addMaterialCommandToSideMenu("Offres", FontImage.MATERIAL_SAILING,e ->{ /*new Home(res).show()*/});
+        tb.addMaterialCommandToSideMenu("Offres", FontImage.MATERIAL_SAILING,e ->new GetOffre(res).show());
         tb.addMaterialCommandToSideMenu("Fidélité", FontImage.MATERIAL_SAILING,e -> new GetFidelite(res).show());
         tb.addMaterialCommandToSideMenu("Réclamations", FontImage.MATERIAL_MESSAGE,e ->{ new AjouterReclamation(TOP,res).show();});
         tb.addMaterialCommandToSideMenu("Profil", FontImage.MATERIAL_PERSON,e ->  new editprofile(res).show());

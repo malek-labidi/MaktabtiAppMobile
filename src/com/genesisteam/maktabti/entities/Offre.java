@@ -10,20 +10,20 @@ package com.genesisteam.maktabti.entities;
  */
 public class Offre {
      private int id_offre;
-    private int id_livre;
+    private String id_livre;
     private String pourcentage_solde;
     private float prix_solde;
     public Offre(){
         
     }
 
-    public Offre(int id_livre, String pourcentage_solde, float prix_soldé) {
+    public Offre(String id_livre, String pourcentage_solde, float prix_soldé) {
         this.id_livre = id_livre;
         this.pourcentage_solde = pourcentage_solde;
         this.prix_solde = prix_solde;
     }
 
-    public Offre(int id_offre, int id_livre, String pourcentage_solde, float prix_soldé) {
+    public Offre(int id_offre, String id_livre, String pourcentage_solde, float prix_soldé) {
         this.id_offre = id_offre;
         this.id_livre = id_livre;
         this.pourcentage_solde = pourcentage_solde;
@@ -34,7 +34,7 @@ public class Offre {
         return id_offre;
     }
 
-    public int getId_livre() {
+    public String getId_livre() {
         return id_livre;
     }
 
@@ -50,7 +50,7 @@ public class Offre {
         this.id_offre = id_offre;
     }
 
-    public void setId_livre(int id_livre) {
+    public void setId_livre(String id_livre) {
         this.id_livre = id_livre;
     }
 
