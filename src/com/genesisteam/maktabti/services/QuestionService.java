@@ -68,8 +68,11 @@ public class QuestionService {
             for (Map<String, Object> item : list) {
 
                 Question c = new Question();
-                c.setIdCompetition((Double) item.get("idCompetition"));
-                c.setIdQuestion((Double) item.get("idQuestion"));
+                float idCompetition = Float.parseFloat(item.get("idCompetition").toString());
+                
+                c.setIdCompetition((int)idCompetition);
+                    float idQuestion = Float.parseFloat(item.get("idQuestion").toString());
+                c.setIdQuestion((int) idQuestion);
                 c.setQuestion((String) item.get("question"));
                 c.setChoix1((String) item.get("choix1"));
                 c.setChoix2((String) item.get("choix2"));
@@ -88,7 +91,7 @@ public class QuestionService {
     }
     
     
-    public List<Question> fetchQuestions(Double id) {
+    public List<Question> fetchQuestions(int id) {
 
         req = new ConnectionRequest();
 

@@ -23,6 +23,12 @@ public class Commentaire {
         this.commentaire = commentaire;
     }
 
+    public Commentaire(int idEvenement, String commentaire) {
+        this.idEvenement = idEvenement;
+        this.commentaire = commentaire;
+    }
+    
+
     public Commentaire(int idClient, int idEvenement, String commentaire) {
         this.idClient = idClient;
         this.idEvenement = idEvenement;

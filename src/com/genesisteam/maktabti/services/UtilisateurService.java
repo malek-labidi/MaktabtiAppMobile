@@ -60,9 +60,10 @@ public class UtilisateurService {
         
      
         
-        String url = Statics.BASE_URL+"register_rest?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
+        String url = Statics.BASE_URL+"/signup?nom="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+
                 "&email="+email.getText().toString()+"&motDePasse="+password.getText().toString()+"&numTelephone="+Numerotelephone.getText().toString()+"&role="+Role.getText().toString();
         
+        //http://localhost:8000/signup?nom=wassim&prenom=hachani&email=wassim6@gmail.com&motDePasse=wassim123A&numTelephone=54100060&role=Administrateur
         req.setUrl(url);
        
         //Control saisi
@@ -188,6 +189,23 @@ public class UtilisateurService {
     { 
 
        String url = Statics.BASE_URL+"/updateprofile/"+id+"?nom="+tfnom.getText()+"&email="+tfEmail.getText()+"&prenom="+tfprenom.getText()+"&role="+tfrole.getText();
+       req.setUrl(url);
+       req.addResponseListener(new ActionListener<NetworkEvent>(){ 
+           @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200; //Code HTTP 200 OK
+                req.removeResponseListener(this);
+             }
+    });
+        System.out.println(""+resultOk);
+       NetworkManager.getInstance().addToQueue(req);
+        return resultOk;
+    }
+        
+    public boolean updatepassword (int id,TextField tfpassword)
+    { 
+
+       String url = Statics.BASE_URL+"/updatePasswordMobile/"+id+"?motDePasse="+tfpassword.getText();
        req.setUrl(url);
        req.addResponseListener(new ActionListener<NetworkEvent>(){ 
            @Override

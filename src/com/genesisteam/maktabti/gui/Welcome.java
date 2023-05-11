@@ -32,6 +32,7 @@ public class Welcome extends BaseForm {
 
     public Welcome(Resources res) {
         // set the UIID and background image of the form
+        setScrollableY(false);
         setUIID("WELCOMEPAGE");
         try {
             setBgImage(EncodedImage.create("/home-img.png"));

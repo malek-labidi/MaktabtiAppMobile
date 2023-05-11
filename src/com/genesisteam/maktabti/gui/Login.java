@@ -6,12 +6,15 @@
 package com.genesisteam.maktabti.gui;
 
 import com.codename1.components.FloatingHint;
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Font;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
@@ -30,26 +33,31 @@ public class Login extends BaseForm{
   public Login(Resources res) {
         
 
-        setTitle("S'authentifier");
-        setScrollableY(true);
-              setUIID("Login Page");
+setScrollableY(false);
+//////////////////////////////// create the image viewer and add it to a container
+    EncodedImage enc = null;
         try {
-            setBgImage(EncodedImage.create("/home-img.png"));
+            enc = EncodedImage.create("/logo.png");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    Image scaledImage = enc.scaledWidth(Display.getInstance().getDisplayWidth() / 3)
+                          .scaledHeight(Display.getInstance().getDisplayHeight() / 5);
+    // Create the ImageViewer with the scaled image
+    ImageViewer imgv = new ImageViewer(scaledImage);
+    // Create the container and add the ImageViewer to it
+    Container imgContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+    imgContainer.add(imgv);
+////////////////////////////////
 
-
-
-        TextField username = new TextField("", "email", 20, TextField.ANY);
-        TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
-        username.setSingleLineTextArea(false);
-        password.setSingleLineTextArea(false);
-        Button signIn = new Button("S'authentifier");
-        Button signUp = new Button("Créer un compte");
+        TextField username = new TextField("", "Email", 20, TextField.ANY);
+        TextField password = new TextField("", "Mot de passe", 20, TextField.PASSWORD);
+        
+        Button signIn = new Button("Se connecter");
+        Button signUp = new Button("S'inscrire");
 
         signIn.getAllStyles().setBgTransparency(0);
-        signIn.getAllStyles().setFgColor(0xFFFFFF);
+        signIn.getAllStyles().setFgColor(000000);
         Border roundedBorder = Border.createRoundBorder(100, 100);
         signIn.getAllStyles().setBorder(roundedBorder);
         signIn.getAllStyles().setPaddingRight(20);
@@ -57,7 +65,6 @@ public class Login extends BaseForm{
         Container buttonloginContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         buttonloginContainer.add(signIn);
 
-        
         //Register Page
         signUp.getAllStyles().setBgColor(0xFFFFFF);
         signUp.getAllStyles().setBorder(roundedBorder);
@@ -72,20 +79,23 @@ public class Login extends BaseForm{
         buttonloginContainer.getAllStyles().setAlignment(Component.CENTER);
         buttonsContainer.getAllStyles().setPaddingTop(20);
         buttonsContainer.getAllStyles().setAlignment(Component.CENTER);
-        username.getAllStyles().setAlignment(Component.CENTER);
-        password.getAllStyles().setAlignment(Component.CENTER);
+       
+        imgContainer.getAllStyles().setMarginTop(500);
+        imgContainer.getAllStyles().setAlignment(CENTER);
+        
 
 
         signIn.addActionListener(e -> 
         {
              UtilisateurService.getInstance().signin(username, password, null);
+             
              new Home(res).show();
 
         });
 
-                this.addAll(username, password, buttonloginContainer,buttonsContainer);
+                this.addAll(imgContainer,username, password, buttonloginContainer,buttonsContainer);
 
-        
+         setLayout(new FlowLayout(Component.CENTER));
         
         
         

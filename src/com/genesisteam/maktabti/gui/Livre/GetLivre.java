@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.genesisteam.maktabti.gui.competition;
+package com.genesisteam.maktabti.gui.Livre;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.io.FileSystemStorage;
+import com.codename1.io.Log;
+import com.codename1.l10n.DateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -22,96 +26,95 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Competition;
+import com.genesisteam.maktabti.entities.Livre;
 import com.genesisteam.maktabti.entities.Question;
 import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
+import com.genesisteam.maktabti.gui.competition.CompetitionDetails;
 import com.genesisteam.maktabti.services.CompetitionService;
+import com.genesisteam.maktabti.services.LivreService;
 import com.genesisteam.maktabti.services.QuestionService;
 import com.genesisteam.maktabti.utilities.Statics;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
- * @author admin
+ * @author Saleh
  */
-public class GetCompetitions extends BaseForm {
+public class GetLivre extends BaseForm {
 
-    CompetitionService cs = CompetitionService.getInstance();
-    QuestionService qs = QuestionService.getInstance();
+    LivreService ls = LivreService.getInstance();
+
     private Resources theme;
 
-    public GetCompetitions(Resources res) {
+    public GetLivre(Resources res) {
 
-        setTitle("Liste des Compétitions");
+        setTitle("Liste des Livres");
         setScrollableY(true);
         super.addSideMenu(res);
-        
+  
 
         // widgets
         Container cards = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
-        for (Competition c : cs.fetchCompetitions()) {
+        for (Livre l : ls.fetchlivre()) {
             // create card
             Container card = new Container(new BorderLayout());
 
             // create card content
             Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
-            content.add(new Label(c.getNom()));
-            //content.add(new Label(c.getRecompense()));
-            content.add(new Label(c.getDateDebut().toString()));
-            content.add(new Label(c.getDateFin().toString()));
+          
+            content.add(new Label(l.getTitre()));
+            content.add(new Label(l.getIdAuteur()));
+            content.add(new Label(l.getIdCategorie()));
+            content.add(new Label("Prix: " + l.getPrix()));
 
             // create image
-            Image image = null;
+            //Image image = null;
             // EncodedImage enc = 
-            try {
+            /* try {
                 image = URLImage.createToStorage(
                         EncodedImage.createFromImage(Image.createImage("/load.png"), false),
-                        c.getImage(),
-                        c.getImage(),
+                        l.getImage(),
+                        l.getImage(),
                         URLImage.RESIZE_SCALE_TO_FILL
                 );
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
-            }
-
+            }*/
             // create image container and add image
-            Container imageContainer = new Container();
-            ImageViewer imgv = new ImageViewer(image);
-            imageContainer.add(imgv);
-
+            // Container imageContainer = new Container();
+            //ImageViewer imgv = new ImageViewer(image);
+            //imageContainer.add(imgv);
             // create button with icon
             Button detailsButton = new Button();
             FontImage.setMaterialIcon(detailsButton, FontImage.MATERIAL_INFO);
             detailsButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    Competition competition = cs.getCompetition(c.getIdCompetition());
-                    new CompetitionDetails(competition,res).show();
+                    Livre livre = ls.getlivre(l.getIdLivre());System.out.println(livre);
+                    new LivreDetails(livre, res).show();
                 }
             });
-
-            Button participateButton = new Button("Participer");
-            participateButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt) {
-                    List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
-                    new getQuestions(questions,res).show();
-                }
-            });
-
             // add content and image containers to card container
             card.add(BorderLayout.CENTER, content);
-            card.add(BorderLayout.WEST, imageContainer);
+            //card.add(BorderLayout.WEST, imageContainer);
             card.add(BorderLayout.EAST, detailsButton);
-            card.add(BorderLayout.SOUTH, participateButton);
 
-            cards.add(card);
+         
+              cards.add(card);
+
+         
         }
 
         this.add(cards);
+      
 
     }
 }

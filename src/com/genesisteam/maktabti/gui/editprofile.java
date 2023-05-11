@@ -36,15 +36,11 @@ import com.genesisteam.maktabti.entities.Utilisateur;
  */
 public class editprofile extends BaseForm{
       public editprofile(Resources res) {
-        setTitle("Modifier Profile");
+        setTitle("Modifier Profil");
         setScrollableY(true);
 
-        setUIID("Update Profile Page");
-        try {
-            setBgImage(EncodedImage.create("/home-img.png"));
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+       
+        super.addSideMenu(res);
 
         SessionManager u = new SessionManager();
 
@@ -58,38 +54,48 @@ public class editprofile extends BaseForm{
         
         
 
-        Button Save = new Button("Save");
+        Button Save = new Button("Enregistrer");
+        Button password = new Button("Changer mot de passe");
 
-        
+        //Design boutton Update
         Save.getAllStyles().setBgTransparency(0);
-        Save.getAllStyles().setFgColor(0xFFFFFF);
+        Save.getAllStyles().setFgColor(0x00377E);
         Border roundedBorder = Border.createRoundBorder(100, 100);
         Save.getAllStyles().setBorder(roundedBorder);
         Save.getAllStyles().setPaddingRight(20);
         Save.getAllStyles().setPaddingLeft(20);
         Container buttonloginContainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         buttonloginContainer.add(Save);
-        tfnom.getAllStyles().setAlignment(Component.CENTER);
-        tfEmail.getAllStyles().setAlignment(Component.CENTER);
-        tfprenom.getAllStyles().setAlignment(Component.CENTER);
-        tfrole.getAllStyles().setAlignment(Component.CENTER);
+        //DesignBoutton Changer mot de passe
+        password.getAllStyles().setBgTransparency(0);
+        password.getAllStyles().setFgColor(0x00377E);
+        Border roundedBorder5 = Border.createRoundBorder(100, 100);
+        password.getAllStyles().setBorder(roundedBorder5);
+        password.getAllStyles().setPaddingRight(20);
+        password.getAllStyles().setPaddingLeft(20);
+        Container buttonchangepasswordcontainer = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        buttonchangepasswordcontainer.add(password);
+        
+        
         //Rounded Border
         Border roundedBorder1 = Border.createRoundBorder(100, 100);
-        tfnom.getAllStyles().setBorder(roundedBorder);
+        tfnom.getAllStyles().setBorder(roundedBorder1);
         Border roundedBorder2 = Border.createRoundBorder(100, 100);
-        tfEmail.getAllStyles().setBorder(roundedBorder);
+        tfEmail.getAllStyles().setBorder(roundedBorder2);
         Border roundedBorder3 = Border.createRoundBorder(100, 100);
-        tfprenom.getAllStyles().setBorder(roundedBorder);
+        tfprenom.getAllStyles().setBorder(roundedBorder3);
         Border roundedBorder4 = Border.createRoundBorder(100, 100);
-        tfrole.getAllStyles().setBorder(roundedBorder);
+        tfrole.getAllStyles().setBorder(roundedBorder4);
 
         Save.addActionListener((e) -> {
             UtilisateurService.getInstance().update(SessionManager.getId(),tfnom,tfEmail,tfprenom, tfrole);
             Dialog.show("Success","account is saved","OK",null);
             new Home(res).show();
         });
-        
-        this.addAll(tfnom, tfEmail, tfprenom,tfrole,buttonloginContainer);
+        password.addActionListener(e -> new editpassword(res).show());
 
+        
+        this.addAll(tfnom, tfEmail, tfprenom,tfrole,buttonloginContainer,buttonchangepasswordcontainer);
+ setLayout(new FlowLayout(Component.CENTER));
     }
 }

@@ -50,7 +50,7 @@ public class CompetitionDetails extends BaseForm {
         
           
               Image image = null;
-            // EncodedImage enc = 
+            
             try {
                image = URLImage.createToStorage(
                         EncodedImage.createFromImage(Image.createImage("/load.png"), false),
