@@ -37,7 +37,7 @@ import com.genesisteam.maktabti.services.EvenementService;
  * @author Gaaloul
  */
 public class GetOffre extends BaseForm{
-      /* OffreService os = OffreService.getInstance();
+       OffreService os = OffreService.getInstance();
 
     public GetOffre(Resources res) {
         setTitle("Liste des Offres");
@@ -54,8 +54,11 @@ public class GetOffre extends BaseForm{
 
             // create card content
             Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+            content.add(new Label(e.getId_livre()));
             content.add(new Label(e.getPourcentage_solde()));
-          
+            content.add(new Label(String.valueOf(e.getPrix_soldé())));
+
+            
 
             // add content and image containers to card container
             card.add(BorderLayout.CENTER, content);
@@ -66,5 +69,5 @@ public class GetOffre extends BaseForm{
 
         this.add(cards);
 
-    }*/
+    }
 }
