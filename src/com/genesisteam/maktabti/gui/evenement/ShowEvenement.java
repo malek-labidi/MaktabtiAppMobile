@@ -75,11 +75,21 @@ public class ShowEvenement extends BaseForm {
                     new EvenementDetails(evenement, res).show();
                 }
             });
+            
+            Button reserveButton = new Button("Réserver");
+            reserveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                   // List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
+                   // new getQuestions(questions,res).show();
+                }
+            });
 
             // add content and image containers to card container
             card.add(BorderLayout.CENTER, content);
             card.add(BorderLayout.WEST, imageContainer);
             card.add(BorderLayout.EAST, detailsButton);
+            card.add(BorderLayout.SOUTH, reserveButton);
 
             cards.add(card);
         }
