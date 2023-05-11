@@ -18,6 +18,7 @@ import com.codename1.ui.Image;
 
 import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.gui.Welcome;
+import com.genesisteam.maktabti.gui.offre.GetOffre;
 
 
 
@@ -65,7 +66,7 @@ public class MyApplication {
         }
 
      
-new Welcome(theme).show();     
+//new GetOffre(theme).show();     
             
               
         

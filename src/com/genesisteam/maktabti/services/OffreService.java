@@ -102,8 +102,9 @@ public class OffreService {
                 o.setId_offre((int)idoffre ); 
                 float idlivre = Float.parseFloat(item.get("idLivre").toString());
                 o.setId_livre((int)idlivre );
-                float prixsolde = Float.parseFloat(item.get("prixSolde").toString());
-                o.setId_livre((int)prixsolde );
+                o.setPrix_soldé(Float.parseFloat((String) item.get("prixSolde")));
+                o.setPourcentage_solde((String) item.get("pourcentageSolde"));
+
 
                 offres.add(o);
             }
