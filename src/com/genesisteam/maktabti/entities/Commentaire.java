@@ -11,7 +11,7 @@ package com.genesisteam.maktabti.entities;
  */
 public class Commentaire {
     private int idCommentaire,idClient,idEvenement;
-    private String commentaire;
+    private String commentaire,nomClient;
 
     public Commentaire() {
     }
@@ -33,6 +33,14 @@ public class Commentaire {
         this.idClient = idClient;
         this.idEvenement = idEvenement;
         this.commentaire = commentaire;
+    }
+
+    public Commentaire(int idCommentaire, int idClient, int idEvenement, String commentaire, String nomClient) {
+        this.idCommentaire = idCommentaire;
+        this.idClient = idClient;
+        this.idEvenement = idEvenement;
+        this.commentaire = commentaire;
+        this.nomClient = nomClient;
     }
     
     
@@ -69,10 +77,19 @@ public class Commentaire {
         this.commentaire = commentaire;
     }
 
+    public String getNomClient() {
+        return nomClient;
+    }
+
+    public void setNomClient(String nomClient) {
+        this.nomClient = nomClient;
+    }
+
     @Override
     public String toString() {
-        return "Commentaire{" + "idCommentaire=" + idCommentaire + ", idClient=" + idClient + ", idEvenement=" + idEvenement + ", commentaire=" + commentaire + '}';
+        return "Commentaire{" + "idCommentaire=" + idCommentaire + ", idClient=" + idClient + ", idEvenement=" + idEvenement + ", commentaire=" + commentaire + ", nomClient=" + nomClient + '}';
     }
+
     
     
 }
