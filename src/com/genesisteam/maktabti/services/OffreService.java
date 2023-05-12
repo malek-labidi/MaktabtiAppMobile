@@ -100,10 +100,10 @@ public class OffreService {
                 Offre o = new Offre();
                 float idoffre = Float.parseFloat(item.get("idOffre").toString());
                 o.setId_offre((int)idoffre ); 
-                float idlivre = Float.parseFloat(item.get("idLivre").toString());
-                o.setId_livre((int)idlivre );
-                float prixsolde = Float.parseFloat(item.get("prixSolde").toString());
-                o.setId_livre((int)prixsolde );
+                o.setId_livre((String)item.get("idLivre") );
+                o.setPrix_soldé(Float.parseFloat( item.get("prixSolde").toString()));
+                o.setPourcentage_solde((String) item.get("pourcentageSolde"));
+
 
                 offres.add(o);
             }

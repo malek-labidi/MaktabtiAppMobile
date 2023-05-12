@@ -12,6 +12,7 @@ import com.codename1.ui.Toolbar;
 import com.codename1.ui.Image;
 
 import com.genesisteam.maktabti.gui.Welcome;
+import com.genesisteam.maktabti.gui.offre.GetOffre;
 
 
 
@@ -59,6 +60,8 @@ public class MyApplication {
         }
 
      
+//new GetOffre(theme).show();     
+            
     // Create an instance of AjouterReclamation with an ID
   // new AjouterReclamation(TOP).show();    
       new Welcome(theme).show();
