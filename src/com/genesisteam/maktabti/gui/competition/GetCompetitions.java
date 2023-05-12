@@ -57,10 +57,17 @@ public class GetCompetitions extends BaseForm {
             // create card content
             Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
-            content.add(new Label(c.getNom()));
+            Label nomLabel = new Label(c.getNom());
+nomLabel.getAllStyles().setFgColor(0x00377E); 
+content.add(nomLabel);
             //content.add(new Label(c.getRecompense()));
-            content.add(new Label(c.getDateDebut().toString()));
-            content.add(new Label(c.getDateFin().toString()));
+          Label debutLabel = new Label(c.getDateDebut().toString());
+debutLabel.getAllStyles().setFgColor(0xD4A373); 
+content.add(debutLabel);
+
+Label finLabel = new Label(c.getDateFin().toString());
+finLabel.getAllStyles().setFgColor(0xD4A373); 
+content.add(finLabel);
 
             // create image
             Image image = null;

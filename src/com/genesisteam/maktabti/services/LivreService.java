@@ -213,6 +213,90 @@ public class LivreService {
 
         return livre;
     }
+    
+    
+    
+    public List<Livre> parselastlivre(String jsonText) {
+
+        //var
+        livres = new ArrayList<>();
+
+        //DO
+        //1
+        JSONParser jp = new JSONParser();
+
+        try {
+
+            //2
+            Map<String, Object> LivreListJSON = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            //3
+            List<Map<String, Object>> list = (List<Map<String, Object>>) LivreListJSON.get("root");
+
+            //4
+            for (Map<String, Object> item : list) {
+                System.out.println(item);
+
+                Livre l = new Livre();
+                float idLivre = Float.parseFloat(item.get("idLivre").toString());
+                l.setIdLivre((int) idLivre);
+                l.setIdAuteur((String) item.get("idAuteur"));
+                l.setIdCategorie((String) item.get("idcategorie"));
+                l.setTitre((String) item.get("titre"));
+                l.setLangue((String) item.get("langue"));
+                float isbn = Float.parseFloat(item.get("isbn").toString());
+                l.setIsbn((int) isbn);
+                float nbPages = Float.parseFloat(item.get("nbPages").toString());
+                l.setNbPages((int) nbPages);
+                l.setResume((String) item.get("resume"));
+                float prix = Float.parseFloat(item.get("prix").toString());
+                l.setPrix((int) prix);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date datePub = null;
+                try {
+                    datePub = (Date) dateFormat.parse((String) item.get("datePub"));
+                } catch (ParseException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                l.setDatePub(datePub);
+               
+               // c.setImage((String) Statics.BASE_URL + "/photos/competitions/" + item.get("image"));
+
+                livres.add(l);
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return livres;
+    }
+
+    public List<Livre> fetchlastlivre() {
+
+        req = new ConnectionRequest();
+
+        //1
+        String fetchURL = Statics.BASE_URL + "/livres/lastlivres";
+
+        //2
+        req.setUrl(fetchURL);
+
+        //3
+        req.setPost(false);
+
+        //4
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                livres = parselivre(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return livres;
+    }
 
 }
     
