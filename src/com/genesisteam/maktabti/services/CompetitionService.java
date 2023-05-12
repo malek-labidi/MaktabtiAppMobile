@@ -214,11 +214,11 @@ public class CompetitionService {
     void onError(String message);
 }
 
-public void participer(int id, ParticiperCallback callback) {
+public void participer(int id, String reponses,ParticiperCallback callback) {
     req = new ConnectionRequest();
 
     // Build the API URL with the competition ID
-    String fetchURL = Statics.BASE_URL + "/competitions/participer/rest/" + id+"/"+SessionManager.getId();
+    String fetchURL = Statics.BASE_URL + "/competitions/participer/rest/" + id+"/"+SessionManager.getId()+"?"+reponses;
     System.out.println(fetchURL);
 
     req.setUrl(fetchURL);
@@ -230,7 +230,7 @@ public void participer(int id, ParticiperCallback callback) {
         public void actionPerformed(NetworkEvent evt) {
             try {
                 String message = fromJsonMessage(new String(req.getResponseData(), "UTF-8"));
-                if (message != null && message.startsWith("success")) {
+                if (message != null && message.startsWith("Votre participation est enregistrée avec succès !")) {
                     callback.onSuccess(message);
                 } else {
                     callback.onError(message);
@@ -250,16 +250,10 @@ public String fromJsonMessage(String jsonText) {
     try {
 
         Map<String, Object> CompetitionsListJSON = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
-        List<Map<String, Object>> list = (List<Map<String, Object>>) CompetitionsListJSON.get("root");
-        for (Map<String, Object> item : list) {
-
-            if (item.get("success") != null) {
-                message = (String) item.get("success");
-            } else if (item.get("error") != null) {
-                message = (String) item.get("error");
-            }
+          if (CompetitionsListJSON.containsKey("message")) {
+            message = (String) CompetitionsListJSON.get("message");
         }
+        
 
     } catch (IOException ex) {
         System.out.println(ex.getMessage());
