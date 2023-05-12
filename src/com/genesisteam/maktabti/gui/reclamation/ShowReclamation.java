@@ -5,63 +5,80 @@
  */
 package com.genesisteam.maktabti.gui.reclamation;
 
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
+import com.codename1.ui.Component;
 import com.codename1.ui.Container;
-import com.codename1.ui.FontImage;
+import com.codename1.ui.Dialog;
+import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.events.ActionEvent;
-import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.util.Resources;
+import com.codename1.ui.plaf.Border;
+import com.codename1.ui.plaf.Style;
 import com.genesisteam.maktabti.entities.Reclamation;
 import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.services.ReclamationService;
+import java.util.ArrayList;
 
 /**
  *
  * @author Ilef
  */
-public class ShowReclamation extends BaseForm {
+public class ShowReclamation extends Form {
 
-    private ReclamationService rs = ReclamationService.getInstance();
+   public ShowReclamation(Form previous) {
+    setTitle("List Reclamation");
+    setLayout(BoxLayout.y());
+    ArrayList<Reclamation> reclamations = ReclamationService.getInstance().getAllReclamations();
+    
+    
+          
+    for (Reclamation reclamation : reclamations) {
+        Container card = new Container(new BorderLayout());
+        card.getStyle().setBorder(Border.createLineBorder(1, ColorUtil.GRAY));
+        card.getStyle().setMarginUnit(Style.UNIT_TYPE_DIPS);
+        card.getStyle().setMargin(Component.BOTTOM, 10);
+        card.getStyle().setBgColor(0xFFFFFF);
 
-    public ShowReclamation(Resources res) {
-        setTitle("Liste des Réclamations");
-        setScrollableY(true);
+        Label idLabel = new Label("ID: " + reclamation.getIdReclamation());
+        Label feedbacktLabel = new Label("feedmback: " + reclamation.getFeedback());
+        Label messageltLabel = new Label("message: " + reclamation.getMessage());
 
-        super.addSideMenu(res);
 
-        // widgets
-        Container cards = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+        idLabel.getStyle().setFgColor(0x000000);
+        feedbacktLabel.getStyle().setFgColor(0x000000);
+        messageltLabel.getStyle().setFgColor(0x000000);
 
-        for (Reclamation r : rs.getAllReclamations()) {
-            // create card
-            Container card = new Container(new BorderLayout());
+   
 
-            // create card content
-            Container content = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-            content.add(new Label(r.getMessage()));
-            content.add(new Label(r.getFeedback()));
+        card.add(BorderLayout.NORTH, idLabel);
+        card.add(BorderLayout.CENTER, BoxLayout.encloseY(feedbacktLabel,messageltLabel));
+        this.add(card);
+                           Button btndelete = new Button("delete");
 
-            Button detailsButton = new Button();
-            FontImage.setMaterialIcon(detailsButton, FontImage.MATERIAL_INFO);
-//            detailsButton.addActionListener(new ActionListener() {
-//                @Override
-////                public void actionPerformed(ActionEvent evt) {
-////                    Reclamation reclamation = rs.getAllReclamations((int) r.getIdReclamation());
-////                    new ReclamationDetails(reclamation, res).show();
-////                }
-//            });
 
-            // add content to card container
-            card.add(BorderLayout.CENTER, content);
-            card.add(BorderLayout.EAST, detailsButton);
+add(btndelete);
 
-            cards.add(card);
-        }
+Button updateButton = new Button("Update Reclamation");
+updateButton.addActionListener(e -> {
+    ModifierReclamation updateForm = new ModifierReclamation(reclamation);
+    updateForm.show();
+    });
 
-        this.add(cards);
+    
+    
 
+
+add(updateButton);
+btndelete.addActionListener((e) -> {
+      com.genesisteam.maktabti.services.ReclamationService.getInstance().suppReclamation(reclamation);
+     ShowReclamation refresh = new ShowReclamation(previous);
+     refresh.show();
+
+});
     }
+
+}
 }

@@ -7,12 +7,12 @@ package com.genesisteam.maktabti.gui.reclamation;
 
 import com.codename1.ui.Button;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Form;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Reclamation;
 import com.genesisteam.maktabti.gui.BaseForm;
-import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.services.ReclamationService;
 
 /**
@@ -20,6 +20,8 @@ import com.genesisteam.maktabti.services.ReclamationService;
  * @author Ilef
  */
 public class AjouterReclamation extends BaseForm{
+    Form current;
+
       public AjouterReclamation(int id,Resources res) {
 
         setLayout(new BoxLayout(BoxLayout.Y_AXIS));
@@ -34,12 +36,15 @@ public class AjouterReclamation extends BaseForm{
 
 // Create a button for adding the comment
         Button addButton = new Button("Ajouter");
-          
+                          Button listButton = new Button("Reclamations");
+
 
         
         addButton.addActionListener(e -> {
             String message = messageTextArea.getText();
             String feedback = feedbackTextArea.getText();
+  
+            
 
             // Validate the comment
             if (message.isEmpty() |feedback.isEmpty() ) {
@@ -64,11 +69,17 @@ public class AjouterReclamation extends BaseForm{
             }
         });
 
-          
+        listButton.addActionListener(e -> {
+            new ShowReclamation(this).show();
+            
+            });
+        
 
         
 
         add(addButton);
+                add(listButton);
+
 
     }
     

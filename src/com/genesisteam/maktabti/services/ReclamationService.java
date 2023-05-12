@@ -57,6 +57,7 @@ public class ReclamationService {
     public ArrayList<Reclamation> parseReclamation(String jsonText) {
         try {
             reclamations = new ArrayList<>();
+            
             JSONParser j = new JSONParser();
             Map<String, Object> reclamationsListJson
                     = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
@@ -64,7 +65,7 @@ public class ReclamationService {
             List<Map<String, Object>> list = (List<Map<String, Object>>) reclamationsListJson.get("root");
             for (Map<String, Object> obj : list) {
                 Reclamation r = new Reclamation();
-                float id = Float.parseFloat(obj.get("id").toString());
+                float id = Float.parseFloat(obj.get("idReclamation").toString());
                 r.setIdReclamation((int) id);
                 r.setMessage((String)obj.get("message"));
                 r.setFeedback((String)obj.get("feedback"));
@@ -89,11 +90,13 @@ public class ReclamationService {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 reclamations = parseReclamation(new String(req.getResponseData()));
+
                 req.removeResponseListener(this);
+                
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        return reclamations;
+        return  reclamations;
     }
     
 public boolean suppReclamation(Reclamation t)
@@ -120,6 +123,7 @@ public void modifierReclamation(int id, String message, String feedback) {
     ConnectionRequest req = new ConnectionRequest();
     req.setUrl(url);
     req.setHttpMethod("PUT");
+    System.out.println(url);
     req.addResponseListener((NetworkEvent evt) -> {
         if (req.getResponseCode() == 200) {
             JSONParser parser = new JSONParser();
