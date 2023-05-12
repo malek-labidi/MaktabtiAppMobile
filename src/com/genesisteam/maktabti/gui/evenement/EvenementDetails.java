@@ -6,6 +6,7 @@
 package com.genesisteam.maktabti.gui.evenement;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.components.SpanLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
@@ -17,18 +18,25 @@ import com.codename1.ui.Label;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.genesisteam.maktabti.entities.Commentaire;
 import com.genesisteam.maktabti.entities.Evenement;
 import com.genesisteam.maktabti.gui.BaseForm;
+import com.genesisteam.maktabti.services.EvenementService;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author SADOK
  */
 public class EvenementDetails extends BaseForm {
+    EvenementService es = EvenementService.getInstance();
+    List<Commentaire> commentaires ;
 
     public EvenementDetails(Evenement evenement,Resources res) {
         setTitle("Détails de l'Evenement");
@@ -66,6 +74,21 @@ public class EvenementDetails extends BaseForm {
         content.add(new Label(evenement.getDate().toString()));
         content.add(new Label(evenement.getLieu()));
         content.add(new Label(evenement.getHeure()));
+        // Display comments
+        SpanLabel titre = new SpanLabel("Commentaires");
+        Container container = new Container(new BorderLayout());
+container.add(BorderLayout.WEST, FontImage.createMaterial(FontImage.MATERIAL_MESSAGE, UIManager.getInstance().getComponentStyle("Label")));
+container.add(BorderLayout.CENTER, titre);
+content.add(container);
+        commentaires =new ArrayList<>();
+        commentaires= es.getCommentsForEvenement(evenement.getIdEvenement());
+        
+        for (Commentaire commentaire : commentaires) {
+            content.add(new Label(commentaire.getNomClient()));
+            content.add(new Label(commentaire.getCommentaire()));
+            content.add(new Label("_________________________"));
+        }
+      
         Button addButton = new Button("Ajouter Commentaire");
         addButton.addActionListener(new ActionListener() {
             @Override
