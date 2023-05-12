@@ -22,6 +22,7 @@ import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Evenement;
 import com.genesisteam.maktabti.gui.BaseForm;
 import com.genesisteam.maktabti.gui.Home;
+import com.genesisteam.maktabti.gui.ReservationForm;
 import com.genesisteam.maktabti.services.EvenementService;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -50,22 +51,21 @@ public class ShowEvenement extends BaseForm {
             content.add(new Label(e.getDate().toString()));
             content.add(new Label(e.getLieu()));
 
-           
-                Image image = null;
-                try {
-                    image = URLImage.createToStorage(
-                            EncodedImage.createFromImage(Image.createImage("/load.png"), false),
-                            e.getImage(),
-                            e.getImage(),
-                            URLImage.RESIZE_SCALE_TO_FILL
-                    );
-                    
-                } catch (IOException ex) {
-                    System.out.println(ex.getMessage());
-                }
-             Container imageContainer = new Container();
-                    ImageViewer imgv = new ImageViewer(image);
-                    imageContainer.add(imgv);
+            Image image = null;
+            try {
+                image = URLImage.createToStorage(
+                        EncodedImage.createFromImage(Image.createImage("/load.png"), false),
+                        e.getImage(),
+                        e.getImage(),
+                        URLImage.RESIZE_SCALE_TO_FILL
+                );
+
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            Container imageContainer = new Container();
+            ImageViewer imgv = new ImageViewer(image);
+            imageContainer.add(imgv);
             Button detailsButton = new Button();
             FontImage.setMaterialIcon(detailsButton, FontImage.MATERIAL_INFO);
             detailsButton.addActionListener(new ActionListener() {
@@ -75,13 +75,13 @@ public class ShowEvenement extends BaseForm {
                     new EvenementDetails(evenement, res).show();
                 }
             });
-            
+
             Button reserveButton = new Button("Réserver");
             reserveButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                   // List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
-                   // new getQuestions(questions,res).show();
+                    ReservationForm reservationForm = new ReservationForm(e,res);
+                    reservationForm.show();
                 }
             });
 
