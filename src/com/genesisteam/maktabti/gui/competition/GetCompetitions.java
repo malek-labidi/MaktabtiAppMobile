@@ -7,11 +7,10 @@ package com.genesisteam.maktabti.gui.competition;
 
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
-import com.codename1.ui.Command;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.EncodedImage;
 import com.codename1.ui.FontImage;
-import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.URLImage;
@@ -19,16 +18,14 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Competition;
 import com.genesisteam.maktabti.entities.Question;
 import com.genesisteam.maktabti.gui.BaseForm;
-import com.genesisteam.maktabti.gui.Home;
 import com.genesisteam.maktabti.services.CompetitionService;
 import com.genesisteam.maktabti.services.QuestionService;
-import com.genesisteam.maktabti.utilities.Statics;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -41,12 +38,14 @@ public class GetCompetitions extends BaseForm {
     QuestionService qs = QuestionService.getInstance();
     private Resources theme;
 
+//Date now = new Date();
+    Calendar now = Calendar.getInstance();
+
     public GetCompetitions(Resources res) {
 
         setTitle("Liste des Compétitions");
         setScrollableY(true);
         super.addSideMenu(res);
-        
 
         // widgets
         Container cards = new Container(new BoxLayout(BoxLayout.Y_AXIS));
@@ -89,7 +88,7 @@ public class GetCompetitions extends BaseForm {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     Competition competition = cs.getCompetition(c.getIdCompetition());
-                    new CompetitionDetails(competition,res).show();
+                    new CompetitionDetails(competition, res).show();
                 }
             });
 
@@ -97,16 +96,33 @@ public class GetCompetitions extends BaseForm {
             participateButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
-                    new getQuestions(questions,res).show();
+                  List<Question> questions = qs.fetchQuestions(c.getIdCompetition());
+                new getQuestions(questions, res).show();
+
+                   
                 }
             });
+            
 
             // add content and image containers to card container
             card.add(BorderLayout.CENTER, content);
             card.add(BorderLayout.WEST, imageContainer);
             card.add(BorderLayout.EAST, detailsButton);
-            card.add(BorderLayout.SOUTH, participateButton);
+            Calendar calendar = Calendar.getInstance();
+            Calendar debut = Calendar.getInstance();
+            debut.setTime(c.getDateDebut());
+            Calendar fin = Calendar.getInstance();
+            fin.setTime(c.getDateFin());
+
+            if (debut.after(now) || fin.before(now)) {
+                // competition is closed
+                Label closedLabel = new Label("Compétition fermée");
+                closedLabel.getAllStyles().setFgColor(0xFF0000); // set the text color to red
+                card.add(BorderLayout.SOUTH, closedLabel); // add the label to the container
+            } else {
+                card.add(BorderLayout.SOUTH, participateButton);
+
+            }
 
             cards.add(card);
         }

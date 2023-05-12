@@ -7,6 +7,7 @@ package com.genesisteam.maktabti.gui.competition;
 
 import com.genesisteam.maktabti.gui.competition.GetCompetitions;
 import com.codename1.components.ImageViewer;
+import com.codename1.ui.Button;
 import com.codename1.ui.Command;
 import com.codename1.ui.Container;
 import com.codename1.ui.EncodedImage;
@@ -16,13 +17,17 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.genesisteam.maktabti.entities.Competition;
+import com.genesisteam.maktabti.entities.Question;
 import com.genesisteam.maktabti.gui.BaseForm;
+import com.genesisteam.maktabti.services.QuestionService;
 import com.genesisteam.maktabti.utilities.Statics;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -30,6 +35,7 @@ import java.io.IOException;
  */
 public class CompetitionDetails extends BaseForm {
     private Resources theme ; 
+    QuestionService qs = QuestionService.getInstance();
     
   
         public CompetitionDetails(Competition competition,Resources res) {
@@ -74,6 +80,15 @@ public class CompetitionDetails extends BaseForm {
         content.add(new Label(competition.getLienCompetition()));
         content.add(new Label(competition.getDateDebut().toString()));
         content.add(new Label(competition.getDateFin().toString()));
+         Button participateButton = new Button("Participer");
+            participateButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    List<Question> questions = qs.fetchQuestions(competition.getIdCompetition());
+                    new getQuestions(questions,res).show();
+                }
+            });
+            content.add(participateButton);
 
         // add content to form
         this.add(content);
